@@ -1,12 +1,24 @@
 const express = require("express");
 const app = express();
 const compression = require("compression");
-
+const bp = require("body-parser");
 const database = require("./src/database.js");
+
+///////MIDLEWARE/////////////////////////
 
 app.use(express.static("./public"));
 
 app.use(compression());
+
+app.use(
+  require("body-parser").urlencoded({
+    extended: false
+  })
+);
+
+app.use(bp.json());
+
+///////////////////////////////////////////
 
 if (process.env.NODE_ENV != "production") {
   app.use(
@@ -29,6 +41,31 @@ app.get("*", (req, res) => {
 
 app.get("/welcome", (req, res) => {
   res.sendFile(__dirname + "/index.html");
+});
+
+app.get("/Login", (req, res) => {
+  res.sendFile(__dirname + "/index.html");
+});
+
+///////////////register route//////////////////
+
+app.post("/register", (req, res) => {
+  console.log(
+    "at register",
+    req.body.first
+    // req.body.last,
+    // req.body.email,
+    // req.body.password
+  );
+  let { first, last, email, password } = req.body;
+  database
+    .newUser(first, last, email, password)
+    .then(response => {
+      res.redirect("/Login");
+    })
+    .catch(err => {
+      console.log("HERE", err);
+    });
 });
 
 // app.get("/welcome", function(req, res) {

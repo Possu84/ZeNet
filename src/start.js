@@ -1,10 +1,10 @@
 import React from "react";
 
+import ReactDOM from "react-dom";
+
 import Login from "./login";
 
 import Registration from "./registration.js";
-
-import ReactDOM from "react-dom";
 
 ///////REACT COMPONENT//////////////////////////
 
