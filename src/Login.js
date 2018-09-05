@@ -1,6 +1,6 @@
 import React from "react";
 
-function Login() {
+function Logo() {
   return (
     <div>
       <input id="email" type="text" name="email" placeholder="email" />
@@ -15,4 +15,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Logo;

@@ -2,7 +2,7 @@ import React from "react";
 
 import ReactDOM from "react-dom";
 
-import Login from "./login";
+import Logo from "./logo";
 
 import Registration from "./registration.js";
 
@@ -44,8 +44,7 @@ class Welcome extends React.Component {
   render() {
     return (
       <div className="splash">
-        <img src="/logo.jpg" />
-        <h1>Welcome to </h1>
+        <Registration />
         <h1 className="splash_text">{this.state.name}! </h1>
         <Greetee
           ////these are the props////////
@@ -53,8 +52,6 @@ class Welcome extends React.Component {
           address={this.state.address}
         />
         <GreeteeEditor handleChange={this.handleChange} />
-        <Registration />
-        <Login />
       </div>
     );
   } // end of render
@@ -73,6 +70,16 @@ function Greetee(props) {
   );
 } // end Greetee
 
+/// checks if the pathname is welcome and re-routs you
+let elem;
+
+if (location.pathname === "/welcome") {
+  console.log("we are taking Welcome");
+  elem = <Welcome />;
+} else {
+  console.log("we are taking Logo");
+  elem = <Logo />;
+}
 ///////// RENDERE! its good to have in the bottom cause example class component does not hoist///////////
 
-ReactDOM.render(<Welcome />, document.querySelector("main"));
+ReactDOM.render(elem, document.querySelector("main"));

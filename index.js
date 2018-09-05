@@ -1,11 +1,28 @@
 const express = require("express");
+
 const app = express();
+
 const compression = require("compression");
+
 const bp = require("body-parser");
+
 const database = require("./src/database.js");
+
 const bcrypt = require("./bcrypt.js");
 
-///////MIDLEWARE/////////////////////////
+const cookieSession = require("cookie-session");
+
+app.use(require("cookie-parser")());
+
+///////MIDLEWARE
+
+app.use(
+  cookieSession({
+    secret: "I am always Hangry.",
+    maxAge: 1000 * 60 * 60 * 24 * 14
+  })
+);
+///////////////////////////
 
 app.use(express.static("./public"));
 
@@ -32,86 +49,45 @@ if (process.env.NODE_ENV != "production") {
   app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
 
-///////////DONT TOUCH/////////////
-
-app.get("*", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
-});
-
 ///////////////welcome route//////////////////
 
 app.get("/welcome", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
+  if (req.session.userId) {
+    console.log("re-directing to /");
+    res.redirect("/"); //// no . cause this is route  only when refering to a file
+  } else {
+    res.sendFile(__dirname + "/index.html");
+  }
 });
-
-app.get("/Login", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
-});
-
-///////////////register route//////////////////
 
 app.post("/register", (req, res) => {
-  console.log(
-    "at register",
-    req.body.first
-    // req.body.last,
-    // req.body.email,
-    // req.body.password
-  );
   let { first, last, email, password } = req.body;
   bcrypt.hashPass(password).then(hashedpass => {
     database
       .newUser(first, last, email, hashedpass)
       .then(response => {
-        res.redirect("/Login");
+        console.log(response);
+        req.session.userId = response.rows[0].id;
+        /////// set session here
+        res.json({ success: true });
       })
       .catch(err => {
         console.log("HERE", err);
+        //// here we are sending json obj that tels the responce was true or false
+        res.json({ success: false });
       });
   });
 });
 
-// app.get("/welcome", function(req, res) {
-//   if (!req.session.userId) {
-//     return res.redirect("/");
-//   }
-//   res.sendFile(__dirname + "/index.html");
-// });
-
-///////////////app post///////////////////////
-
-// app.post("/info", (req, res) => {
-//   if (
-//     req.body.first == "" ||
-//     req.body.last == "" ||
-//     req.body.email == "" ||
-//     req.body.password == ""
-//   ) {
-//     return res.sendFile(__dirname + "/index.html");
-//   }
-//
-//   ////////NEXT BCRYPT?///////////
-//
-//   // console.log(req.session.row, 'profile info');
-//   database
-//     .newUser(
-//       req.body.age,
-//       req.body.city,
-//       req.body.homepage,
-//       req.session.user.userId
-//     )
-//     .then(response => {
-//       console.log("through the new user mosule", responce);
-//       res.redirect("/petition");
-//     })
-//     .catch(err => {
-//       console.log("HERE");
-//       res.render("info", {
-//         layout: "main",
-//         error: true
-//       });
-//     });
-// });
+///////////DONT TOUCH/////MUST BE LAST!!!!////////
+////// needs to check if cookie sessions is present//////////
+app.get("*", (req, res) => {
+  if (!req.session.userId) {
+    res.redirect("/welcome");
+  } else {
+    res.sendFile(__dirname + "/index.html");
+  }
+});
 
 // ////////////LISTENER////////////////////
 

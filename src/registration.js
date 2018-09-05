@@ -38,7 +38,11 @@ class Registration extends React.Component {
   render() {
     return (
       <div>
-        {this.state.error && <div className="error">Please try again</div>}
+        <img src="/logo.jpg" />
+        <h1>Welcome to </h1>
+        {this.state.error && (
+          <div className="error">Please fill all fields</div>
+        )}
         <input
           onChange={this.handleChange}
           name="first_name_input"
