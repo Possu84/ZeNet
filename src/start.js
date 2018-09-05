@@ -4,7 +4,11 @@ import ReactDOM from "react-dom";
 
 import Logo from "./logo";
 
-import Registration from "./registration.js";
+import { HashRouter, Route } from "react-router-dom";
+
+import Registration from "./registration";
+
+import Login from "./login";
 
 ///////REACT COMPONENT//////////////////////////
 
@@ -25,7 +29,7 @@ class Welcome extends React.Component {
   /////////Handle change sets text field to what ever is in imput field
 
   handleChange(e) {
-    console.log("user imput", e.target.value);
+    console.log("user input", e.target.value);
     /////this is ansyncrounous that why were are using call back
     this.setState(
       {
@@ -43,15 +47,15 @@ class Welcome extends React.Component {
 
   render() {
     return (
-      <div className="splash">
-        <Registration />
-        <h1 className="splash_text">{this.state.name}! </h1>
-        <Greetee
-          ////these are the props////////
-          name={this.state.name}
-          address={this.state.address}
-        />
-        <GreeteeEditor handleChange={this.handleChange} />
+      <div id="welcome">
+        <h1>Welcome!</h1>
+        <img src="/logo.jpg" />
+        <HashRouter>
+          <div>
+            <Route exact path="/" component={Registration} />
+            <Route path="/login" component={Login} />
+          </div>
+        </HashRouter>
       </div>
     );
   } // end of render
@@ -83,3 +87,14 @@ if (location.pathname === "/welcome") {
 ///////// RENDERE! its good to have in the bottom cause example class component does not hoist///////////
 
 ReactDOM.render(elem, document.querySelector("main"));
+
+// <div className="splash">
+//   <Registration />
+//   <h1 className="splash_text">{this.state.name}! </h1>
+//   <Greetee
+//     ////these are the props////////
+//     name={this.state.name}
+//     address={this.state.address}
+//   />
+//   <GreeteeEditor handleChange={this.handleChange} />
+// </div>

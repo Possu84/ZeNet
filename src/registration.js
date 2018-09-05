@@ -1,6 +1,8 @@
 import React from "react";
 
-import axios from "axios";
+import axios from "./axios";
+
+import { Link } from "react-router-dom";
 
 /////////////registration component////////////
 
@@ -12,12 +14,24 @@ class Registration extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     // binds the register button
     this.registerClick = this.registerClick.bind(this);
+    // binds the login button
+    this.loginPage = this.loginPage.bind(this);
   } // end constructor
   handleChange(e) {
     this[e.target.name] = e.target.value;
   } // end handleChange
+  loginPage() {
+    console.log("login click");
+    axios.post("/login");
+  }
   registerClick() {
-    console.log("at Click", this.first_name_input);
+    console.log(
+      "at Click",
+      this.first_name_input,
+      this.last_name_input,
+      this.email_input,
+      this.password_input
+    );
     axios
       .post("/register", {
         first: this.first_name_input,
@@ -38,8 +52,6 @@ class Registration extends React.Component {
   render() {
     return (
       <div>
-        <img src="/logo.jpg" />
-        <h1>Welcome to </h1>
         {this.state.error && (
           <div className="error">Please fill all fields</div>
         )}
@@ -67,6 +79,8 @@ class Registration extends React.Component {
         <button onClick={this.registerClick} name="register">
           register
         </button>
+
+        <Link to="/login">Click here to Log in!</Link>
       </div>
     ); // end of return
   } // end of renderer

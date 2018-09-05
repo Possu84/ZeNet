@@ -1,5 +1,7 @@
 const express = require("express");
 
+const axios = require("axios");
+
 const app = express();
 
 const compression = require("compression");
@@ -12,6 +14,8 @@ const bcrypt = require("./bcrypt.js");
 
 const cookieSession = require("cookie-session");
 
+const csurf = require("csurf");
+
 app.use(require("cookie-parser")());
 
 ///////MIDLEWARE
@@ -22,17 +26,24 @@ app.use(
     maxAge: 1000 * 60 * 60 * 24 * 14
   })
 );
-///////////////////////////
-
-app.use(express.static("./public"));
-
-app.use(compression());
 
 app.use(
   require("body-parser").urlencoded({
     extended: false
   })
 );
+
+app.use(csurf());
+
+app.use(function(req, res, next) {
+  res.cookie("mytoken", req.csrfToken());
+  next();
+});
+///////////////////////////
+
+app.use(express.static("./public"));
+
+app.use(compression());
 
 app.use(bp.json());
 
@@ -53,7 +64,6 @@ if (process.env.NODE_ENV != "production") {
 
 app.get("/welcome", (req, res) => {
   if (req.session.userId) {
-    console.log("re-directing to /");
     res.redirect("/"); //// no . cause this is route  only when refering to a file
   } else {
     res.sendFile(__dirname + "/index.html");
@@ -61,6 +71,7 @@ app.get("/welcome", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
+  console.log("at post", this.first_name_input);
   let { first, last, email, password } = req.body;
   bcrypt.hashPass(password).then(hashedpass => {
     database
@@ -77,6 +88,13 @@ app.post("/register", (req, res) => {
         res.json({ success: false });
       });
   });
+});
+
+////////////LOGIN////////////
+
+app.get("/login", (req, res) => {
+  console.log("we are here at login");
+  res.redirect("/login");
 });
 
 ///////////DONT TOUCH/////MUST BE LAST!!!!////////

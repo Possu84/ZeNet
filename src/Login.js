@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
+
 function Logo() {
   return (
     <div>
@@ -11,6 +13,7 @@ function Logo() {
         placeholder="password"
       />
       <button type="submit">Login</button>
+      <Link to="/">Click here for registration!</Link>
     </div>
   );
 }
