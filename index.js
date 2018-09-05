@@ -3,6 +3,7 @@ const app = express();
 const compression = require("compression");
 const bp = require("body-parser");
 const database = require("./src/database.js");
+const bcrypt = require("./bcrypt.js");
 
 ///////MIDLEWARE/////////////////////////
 
@@ -58,14 +59,16 @@ app.post("/register", (req, res) => {
     // req.body.password
   );
   let { first, last, email, password } = req.body;
-  database
-    .newUser(first, last, email, password)
-    .then(response => {
-      res.redirect("/Login");
-    })
-    .catch(err => {
-      console.log("HERE", err);
-    });
+  bcrypt.hashPass(password).then(hashedpass => {
+    database
+      .newUser(first, last, email, hashedpass)
+      .then(response => {
+        res.redirect("/Login");
+      })
+      .catch(err => {
+        console.log("HERE", err);
+      });
+  });
 });
 
 // app.get("/welcome", function(req, res) {
