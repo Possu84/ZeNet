@@ -39,6 +39,7 @@ app.use(function(req, res, next) {
   res.cookie("mytoken", req.csrfToken());
   next();
 });
+
 ///////////////////////////
 
 app.use(express.static("./public"));
@@ -95,6 +96,31 @@ app.post("/register", (req, res) => {
 app.get("/login", (req, res) => {
   console.log("we are here at login");
   res.redirect("/login");
+});
+
+app.post("/login", (req, res) => {
+  let { email, password } = req.body;
+  database
+    .login(email)
+    .then(response => {
+      let user = response.rows[0];
+
+      bcrypt
+        .checkPass(password, user.password)
+        .then(match => {
+          console.log(match, "at the return");
+          if (match) {
+            req.session.userId = user.id;
+            res.json({
+              success: true
+            });
+          } else {
+            throw new Error();
+          }
+        })
+        .catch(() => res.json({ success: false }));
+    })
+    .catch(() => res.json({ success: false }));
 });
 
 ///////////DONT TOUCH/////MUST BE LAST!!!!////////

@@ -12,3 +12,14 @@ module.exports.newUser = function newUser(first, last, email, hashPass) {
     [first, last, email, hashPass]
   );
 };
+
+module.exports.login = email => {
+  console.log("at the login query", email);
+  return db.query(
+    `
+        SELECT * FROM users
+        WHERE email = $1
+        `,
+    [email]
+  );
+};
