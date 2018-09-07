@@ -135,22 +135,34 @@ ReactDOM.render(<Hello />, document.querySelector("main"));
 //   return <img src={logo.jpg} />;
 // }
 
-
-
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Welcome from './welcome';
-import Logo from './logo';
+import React from "react";
+import ReactDOM from "react-dom";
+import Welcome from "./welcome";
+import Logo from "./logo";
 
 let elem;
 
-if (location.pathname == '/welcome') {
-    elem = <Welcome />;
+if (location.pathname == "/welcome") {
+  elem = <Welcome />;
 } else {
-    elem = <Logo />
+  elem = <Logo />;
 }
 
-ReactDOM.render(
-    elem,
-    document.querySelector('main')
-);s
+ReactDOM.render(elem, document.querySelector("main"));
+
+////////"greeteeeditor"/////////å
+
+function GreeteeEditor(props) {
+  return <input onChange={props.handleChange} />;
+} // end of GreeteeEditor
+
+function Greetee(props) {
+  console.log("props:", props);
+  return (
+    <div>
+      <h3>Greetee component {props.name} </h3>
+    </div>
+  );
+} // end Greetee
+
+/// checks if the pathname is welcome and re-routs you

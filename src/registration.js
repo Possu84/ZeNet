@@ -2,6 +2,8 @@ import React from "react";
 
 import axios from "./axios";
 
+import Background from "./background";
+
 import { Link } from "react-router-dom";
 
 /////////////registration component////////////
@@ -51,7 +53,7 @@ class Registration extends React.Component {
   } /// end registerClick
   render() {
     return (
-      <div>
+      <div id="reg_block">
         {this.state.error && (
           <div className="error">Please fill all fields</div>
         )}

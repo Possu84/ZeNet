@@ -1,5 +1,4 @@
 * {
-  background-color: lightgrey;
   margin: 0;
 }
 
@@ -33,24 +32,183 @@ body {
 }
 
 .splash {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .splash_text {
   font-family: "Creepster", cursive;
   font-size: 60px;
   color: pink;
-    -webkit-text-stroke: 1px lime;
+  -webkit-text-stroke: 1px lime;
 }
 
 .registration {
   width: inherit;
 }
 
+.app_main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#uploadButton:hover {
+  cursor: pointer;
+  top: 10px;
+  background-color: none;
+  color: grey;
+  font-family: "Libre Barcode 128 Text", cursive;
+  font-size: 45px;
+}
+
+#uploadButton {
+  background-color: none;
+  color: white;
+  font-family: "Libre Barcode 128 Text", cursive;
+  font-size: 45px;
+}
+
+#modal {
+  color: white;
+  font-family: "Libre Barcode 128 Text", cursive;
+  font-size: 45px;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  top: 20%;
+  bottom: 20%;
+  left: 20%;
+  right: 20%;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+#smallLogo {
+  color: white;
+  margin-top: 30%;
+  font-size: 50px;
+  font-family: "Libre Barcode 128 Text", cursive;
+}
+
+#login_block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgba(54, 25, 25, 0.1);
+  border-radius: 5px;
+}
+
+#reg_block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgba(54, 25, 25, 0.1);
+  border-radius: 5px;
+  width: inherit;
+}
+
+#logo_text {
+  margin-top: 40%;
+  font-size: 300px;
+  font-family: "Libre Barcode 128 Text", cursive;
+}
+
+#background {
+  background-color: red;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -5;
+  background-color: silver;
+  background-image: radial-gradient(
+      circle at 100% 150%,
+      silver 24%,
+      white 25%,
+      white 28%,
+      silver 29%,
+      silver 36%,
+      white 36%,
+      white 40%,
+      transparent 40%,
+      transparent
+    ),
+    radial-gradient(
+      circle at 0 150%,
+      silver 24%,
+      white 25%,
+      white 28%,
+      silver 29%,
+      silver 36%,
+      white 36%,
+      white 40%,
+      transparent 40%,
+      transparent
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      white 10%,
+      silver 11%,
+      silver 23%,
+      white 24%,
+      white 30%,
+      silver 31%,
+      silver 43%,
+      white 44%,
+      white 50%,
+      silver 51%,
+      silver 63%,
+      white 64%,
+      white 71%,
+      transparent 71%,
+      transparent
+    ),
+    radial-gradient(
+      circle at 100% 50%,
+      white 5%,
+      silver 6%,
+      silver 15%,
+      white 16%,
+      white 20%,
+      silver 21%,
+      silver 30%,
+      white 31%,
+      white 35%,
+      silver 36%,
+      silver 45%,
+      white 46%,
+      white 49%,
+      transparent 50%,
+      transparent
+    ),
+    radial-gradient(
+      circle at 0 50%,
+      white 5%,
+      silver 6%,
+      silver 15%,
+      white 16%,
+      white 20%,
+      silver 21%,
+      silver 30%,
+      white 31%,
+      white 35%,
+      silver 36%,
+      silver 45%,
+      white 46%,
+      white 49%,
+      transparent 50%,
+      transparent
+    );
+  background-size: 100px 50px;
+}
 /* font-family: 'Muli', sans-serif;
 font-family: 'Pacifico', cursive;
 font-family: 'Shadows Into Light', cursive;

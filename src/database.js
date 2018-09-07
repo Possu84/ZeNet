@@ -23,3 +23,7 @@ module.exports.login = email => {
     [email]
   );
 };
+
+module.exports.getUser = () => {
+  return db.query(` SELECT * FROM users WHERE email = $1 `);
+};

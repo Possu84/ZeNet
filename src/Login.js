@@ -4,6 +4,10 @@ import axios from "./axios";
 
 import { Link } from "react-router-dom";
 
+import Background from "./background";
+
+import LogoText from "./logotext";
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -17,11 +21,6 @@ class Login extends React.Component {
     this[e.target.name] = e.target.value;
   }
   loginPost() {
-    console.log(
-      "clickidi click in the post the thick",
-      this.email,
-      this.password
-    );
     axios
       .post("/login", {
         email: this.email,
@@ -39,7 +38,7 @@ class Login extends React.Component {
   } // end of login function
   render() {
     return (
-      <div>
+      <div id="login_block">
         {this.state.error && (
           <div className="error">check your email and password</div>
         )}

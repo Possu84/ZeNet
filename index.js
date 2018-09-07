@@ -1,10 +1,10 @@
 const express = require("express");
 
-const axios = require("axios");
-
 const app = express();
 
 const compression = require("compression");
+
+const axios = require("axios");
 
 const bp = require("body-parser");
 
@@ -17,6 +17,10 @@ const cookieSession = require("cookie-session");
 const csurf = require("csurf");
 
 app.use(require("cookie-parser")());
+
+const s3 = require("./s3.js");
+
+const config = require("./config.json");
 
 ///////MIDLEWARE
 
@@ -72,19 +76,16 @@ app.get("/welcome", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-  console.log("at post", this.first_name_input);
   let { first, last, email, password } = req.body;
   bcrypt.hashPass(password).then(hashedpass => {
     database
       .newUser(first, last, email, hashedpass)
       .then(response => {
-        console.log(response);
         req.session.userId = response.rows[0].id;
         /////// set session here
         res.json({ success: true });
       })
       .catch(err => {
-        console.log("HERE", err);
         //// here we are sending json obj that tels the responce was true or false
         res.json({ success: false });
       });
@@ -94,7 +95,6 @@ app.post("/register", (req, res) => {
 ////////////LOGIN////////////
 
 app.get("/login", (req, res) => {
-  console.log("we are here at login");
   res.redirect("/login");
 });
 
@@ -108,7 +108,6 @@ app.post("/login", (req, res) => {
       bcrypt
         .checkPass(password, user.password)
         .then(match => {
-          console.log(match, "at the return");
           if (match) {
             req.session.userId = user.id;
             res.json({
@@ -123,6 +122,10 @@ app.post("/login", (req, res) => {
     .catch(() => res.json({ success: false }));
 });
 
+///////////////////////////////////////////////////
+
+app.get("/getUser", (req, res) => {});
+
 ///////////DONT TOUCH/////MUST BE LAST!!!!////////
 ////// needs to check if cookie sessions is present//////////
 app.get("*", (req, res) => {
@@ -135,6 +138,4 @@ app.get("*", (req, res) => {
 
 // ////////////LISTENER////////////////////
 
-app.listen(8080, function() {
-  console.log("I'm listening.");
-});
+app.listen(8080, function() {});
