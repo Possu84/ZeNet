@@ -161,7 +161,7 @@ app.get("/getuser", (req, res) => {
   database
     .getUser(req.session.userId)
     .then(results => {
-      console.log("here are the Results");
+      console.log("here are the Results", results.rows[0]);
       res.json(results.rows[0]);
     })
     .catch(err => {
@@ -174,12 +174,8 @@ app.get("/getuser", (req, res) => {
 app.post("/uploadPic", uploader.single("file"), s3.upload, (req, res) => {
   database
     .updateImage(config.s3Url + req.file.filename, req.session.userId)
-    .then(() => {
-      req.session.avatar_url = config.s3Url + req.file.filename;
-
-      res.json({
-        picUrl: config.s3Url + req.file.filename
-      });
+    .then(results => {
+      res.json(results.rows[0]);
     })
     .catch(err => {
       console.log("Error in writeFileTo: ", err);

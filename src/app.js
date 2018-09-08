@@ -2,8 +2,6 @@ import React from "react";
 
 import ReactDOM from "react-dom";
 
-import Logo from "./logo";
-
 import { HashRouter, Route } from "react-router-dom";
 
 import Registration from "./registration";
@@ -14,7 +12,7 @@ import { Link } from "react-router-dom";
 
 import axios from "./axios";
 
-import ProfilePic from "./profilepic";
+import ProfilePic from "./profilePic";
 
 import LogoText from "./logotext";
 
@@ -31,7 +29,7 @@ class App extends React.Component {
       lastname: "",
       email: "",
       bio: "",
-      imageUrl:
+      picurl:
         "https://static-cdn.jtvnw.net/jtv_user_pictures/madcitygg-profile_image-d182e6f9183999a2-300x300.jpeg",
       modal: false
     };
@@ -51,6 +49,30 @@ class App extends React.Component {
       modal: !this.state.modal
     });
   }
+
+  componentDidMount() {
+    axios.get("/getuser").then(({ data }) => {
+      console.log(
+        "login",
+        data,
+        data.id,
+        data.first_name,
+        data.last_name,
+        data.email,
+        data.picurl
+      );
+      this.setState({
+        id: data.id,
+        name: data.first_name,
+        last_name: data.last_name,
+        email: data.email,
+        picurl: data.picurl
+      });
+
+      console.log(this.state);
+    });
+  }
+
   upLoadPic(e) {
     console.log("upload", e, e.target.files[0], FormData);
     let file = e.target.files[0];
@@ -62,33 +84,20 @@ class App extends React.Component {
     fd.append("file", file);
     axios.post("/uploadPic", fd).then(({ data }) => {
       console.log("logging data", data);
-      // this.props.updateImage(data.imageUrl);
-    });
-  }
-  componentDidMount() {
-    axios.get("/getuser").then(({ data }) => {
-      console.log(
-        "login",
-        data.id,
-        data.first_name,
-        data.last_name,
-        data.email,
-        data.picUrl
-      );
+      // this.updateImage(data.picurl);
+
       this.setState({
-        id: data.id,
-        name: data.first_name,
-        last_name: data.last_name,
-        email: data.email,
-        pic: data.picUrl
+        picurl: data.picurl,
+        modal: false
       });
     });
   }
+
   render() {
     return (
       <div id="app_main">
         <LogoText />
-        <ProfilePic toggleModal={this.toggleModal} />
+        <ProfilePic picurl={this.state.picurl} toggleModal={this.toggleModal} />
         {this.state.modal && <Modal upLoadPic={this.upLoadPic} />}{" "}
         {/* this is conditional rendering */}
       </div>

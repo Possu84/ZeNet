@@ -32,7 +32,7 @@ export default class App extends React.Component {
     }
     return (
       <div>
-        <Logo />
+        <h1> hahahahhahah</h1>
         <ProfilePic imgUrl={this.state.imageUrl} />
         {this.state.uploaderIsVisible && (
           <Uploader upDateImage={this.upDateImage} />

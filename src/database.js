@@ -29,8 +29,8 @@ module.exports.getUser = function getUser(id) {
 module.exports.updateImage = function updateImage(picUrl, id) {
   return db.query(
     `UPDATE users
-                    SET picUrl  = $1
-                    WHERE id = $2
+                SET picUrl  = $1
+                WHERE id = $2 RETURNING picUrl
                     `,
     [picUrl, id]
   );
