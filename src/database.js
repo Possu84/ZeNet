@@ -5,7 +5,6 @@ const db = spicedPG("postgres:postgres:postgres@localhost:5432/socialnet");
 ///////////DATABASE QUERIES///////////////////////////////
 
 module.exports.newUser = function newUser(first, last, email, hashPass) {
-  console.log("new User", first, last, email, hashPass);
   //////the required parameters
   return db.query(
     "INSERT INTO users (first_name, last_name, email, password) VALUES($1, $2, $3, $4) RETURNING id",
@@ -13,8 +12,7 @@ module.exports.newUser = function newUser(first, last, email, hashPass) {
   );
 };
 
-module.exports.login = email => {
-  console.log("at the login query", email);
+module.exports.login = function login(email) {
   return db.query(
     `
         SELECT * FROM users
@@ -24,6 +22,6 @@ module.exports.login = email => {
   );
 };
 
-module.exports.getUser = () => {
-  return db.query(` SELECT * FROM users WHERE email = $1 `);
+module.exports.getUser = function getUser(id) {
+  return db.query(` SELECT * FROM users WHERE id = $1 `, [id]);
 };

@@ -11,10 +11,13 @@ function Modal(props) {
       <h1 />
       <p> DO you WaNt to upload some pics ;) </p>
       <p> we eNjoy iT gReatLy </p>
-      <p id="uploadButton" onClick={props.upLoadPic}>
-        {" "}
-        UPLOAd{" "}
-      </p>
+
+      <input
+        id="myInput"
+        type="file"
+        accept="image/*"
+        onChange={props.upLoadPic}
+      />
     </div>
   );
 }

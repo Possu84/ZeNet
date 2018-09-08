@@ -99,6 +99,7 @@ app.get("/login", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
+  console.log("logging login");
   let { email, password } = req.body;
   database
     .login(email)
@@ -124,7 +125,18 @@ app.post("/login", (req, res) => {
 
 ///////////////////////////////////////////////////
 
-app.get("/getUser", (req, res) => {});
+app.get("/getuser", (req, res) => {
+  console.log("get Users", req.session.userId);
+  database
+    .getUser(req.session.userId)
+    .then(results => {
+      console.log("here are the Results");
+      res.json(results.rows[0]);
+    })
+    .catch(err => {
+      console.log("here is teh err", err);
+    });
+});
 
 ///////////DONT TOUCH/////MUST BE LAST!!!!////////
 ////// needs to check if cookie sessions is present//////////

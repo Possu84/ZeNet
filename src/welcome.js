@@ -31,13 +31,12 @@ class Welcome extends React.Component {
   /////////Handle change sets text field to what ever is in imput field
 
   handleChange(e) {
-    console.log("user input", e.target.value);
     /////this is ansyncrounous that why were are using call back
     this.setState(
       {
         name: e.target.value
       },
-      () => console.log("this state", this.state)
+      () => console.log("this state")
     ); //// <= here call back
   } /// end of handleChange
 

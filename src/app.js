@@ -47,19 +47,35 @@ class App extends React.Component {
   }
 
   toggleModal() {
-    console.log("clic");
     this.setState({
       modal: !this.state.modal
     });
   }
   upLoadPic() {
-    console.log("clic");
+    console.log("upload");
+
+    const fd = new FormData();
+    axios.post("/upload", fd).then(({ data }) => {
+      console.log("logging data", data);
+      this.props.updateImage(data.imageUrl);
+    });
   }
   componentDidMount() {
     axios.get("/getuser").then(({ data }) => {
-      console.log("login the datas", data);
+      console.log(
+        "login",
+        data.id,
+        data.first_name,
+        data.last_name,
+        data.email,
+        data.picUrl
+      );
       this.setState({
-        name: resp.data.name
+        id: data.id,
+        name: data.first_name,
+        last_name: data.last_name,
+        email: data.email,
+        pic: data.picUrl
       });
     });
   }
