@@ -22,7 +22,38 @@ const s3 = require("./s3.js");
 
 const config = require("./config.json");
 
-///////MIDLEWARE
+///////MIDLEWARE//////////////////////////
+
+//////////NO TOUCHY//////////////////////////
+
+var multer = require("multer"); // takes the actual file
+var uidSafe = require("uid-safe"); //  gives the file unique name
+var path = require("path"); //
+
+////////DISCK STORAGE////////////////////////
+
+var diskStorage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    // destination:defines what directory will the files go to
+
+    callback(null, __dirname + "/uploads");
+  },
+  filename: (req, file, callback) => {
+    // will give the file a unique name so we dont have files with same name which would give problems along the line
+    uidSafe(24).then(uid => {
+      callback(null, uid + path.extname(file.originalname));
+    });
+  }
+});
+
+var uploader = multer({
+  storage: diskStorage,
+  limits: {
+    fileSize: 2097152
+  }
+});
+
+///////////////////////////////////////////////////////
 
 app.use(
   cookieSession({
@@ -135,6 +166,26 @@ app.get("/getuser", (req, res) => {
     })
     .catch(err => {
       console.log("here is teh err", err);
+    });
+});
+
+////////////////uploadpic///////////////////
+
+app.post("/uploadPic", uploader.single("file"), s3.upload, (req, res) => {
+  database
+    .updateImage(config.s3Url + req.file.filename, req.session.userId)
+    .then(() => {
+      req.session.avatar_url = config.s3Url + req.file.filename;
+
+      res.json({
+        picUrl: config.s3Url + req.file.filename
+      });
+    })
+    .catch(err => {
+      console.log("Error in writeFileTo: ", err);
+      res.status(500).json({
+        success: false
+      });
     });
 });
 

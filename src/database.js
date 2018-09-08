@@ -25,3 +25,13 @@ module.exports.login = function login(email) {
 module.exports.getUser = function getUser(id) {
   return db.query(` SELECT * FROM users WHERE id = $1 `, [id]);
 };
+
+module.exports.updateImage = function updateImage(picUrl, id) {
+  return db.query(
+    `UPDATE users
+                    SET picUrl  = $1
+                    WHERE id = $2
+                    `,
+    [picUrl, id]
+  );
+};

@@ -51,13 +51,18 @@ class App extends React.Component {
       modal: !this.state.modal
     });
   }
-  upLoadPic() {
-    console.log("upload");
+  upLoadPic(e) {
+    console.log("upload", e, e.target.files[0], FormData);
+    let file = e.target.files[0];
+
+    this.setState({ file: e.target.files[0] });
 
     const fd = new FormData();
-    axios.post("/upload", fd).then(({ data }) => {
+
+    fd.append("file", file);
+    axios.post("/uploadPic", fd).then(({ data }) => {
       console.log("logging data", data);
-      this.props.updateImage(data.imageUrl);
+      // this.props.updateImage(data.imageUrl);
     });
   }
   componentDidMount() {
