@@ -8,7 +8,20 @@ class Welcome extends React.Component {
   render() {
     return (
       <div>
-        <h1> OtherProfile </h1>
+        <h1> The OtherProfile </h1>
+        <img id="picInProfile" src={props.picurl} />
+        <textarea defaultValue={props.bio} />
+        <div>
+          <h1>
+            {props.firstName} {props.lastName} {props.bio}
+          </h1>
+
+          {props.showBio ? (
+            <textarea onKeyDown={props.setBio} defaultValue={props.bio} />
+          ) : (
+            <p onClick={props.toggleBio}>Update your bio.</p>
+          )}
+        </div>
       </div>
     );
   }

@@ -7,7 +7,7 @@ function Profile(props) {
   return (
     <div id="profile_container">
       <img id="picInProfile" src={props.picurl} />
-      <textareas defaultValue={props.bio} />
+
       <div>
         <h1>
           {props.firstName} {props.lastName} {props.bio}

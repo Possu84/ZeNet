@@ -137,21 +137,35 @@ class App extends React.Component {
         {this.state.modal && <Modal upLoadPic={this.upLoadPic} />}{" "}
         {/* this is conditional rendering */}
         <BrowserRouter>
-          <Route
-            path="/"
-            render={() => (
-              <Profile
-                id={this.state.id}
-                firstName={this.state.name}
-                lastName={this.state.last_name}
-                picurl={this.state.picurl}
-                bio={this.state.bio}
-                showBio={this.state.showBio}
-                toggleBio={this.toggleBio}
-                setBio={this.setBio}
-              />
-            )}
-          />
+          <div>
+            <Route
+              path="/"
+              render={() => (
+                <Profile
+                  id={this.state.id}
+                  firstName={this.state.name}
+                  lastName={this.state.last_name}
+                  picurl={this.state.picurl}
+                  bio={this.state.bio}
+                  showBio={this.state.showBio}
+                  toggleBio={this.toggleBio}
+                  setBio={this.setBio}
+                />
+              )}
+            />
+            <Route
+              path="user/:id"
+              render={() => (
+                <Profile
+                  id={this.state.id}
+                  firstName={this.state.name}
+                  lastName={this.state.last_name}
+                  picurl={this.state.picurl}
+                  bio={this.state.bio}
+                />
+              )}
+            />
+          </div>
         </BrowserRouter>
       </div>
     );
