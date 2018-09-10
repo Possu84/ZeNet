@@ -61,6 +61,11 @@ body {
   flex-direction: column;
 }
 
+#small_text {
+  font-size: 50px;
+  font-family: "Libre Barcode 128 Text", cursive;
+}
+
 #header_component {
   position: absolute;
   top: 0;

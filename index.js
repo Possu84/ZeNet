@@ -197,6 +197,19 @@ app.post("/profile", (req, res) => {
   });
 });
 
+///////////////get other user/////////////////////////
+app.get("/other-user/:userId", (req, res) => {
+  console.log("get Users", req.params.userId);
+  database
+    .otherUser(req.params.userId)
+    .then(results => {
+      console.log("here are the Results", results.rows[0]);
+      res.json(results.rows[0]);
+    })
+    .catch(err => {
+      console.log("here is the err", err);
+    });
+});
 ///////////DONT TOUCH/////MUST BE LAST!!!!////////
 ////// needs to check if cookie sessions is present//////////
 app.get("*", (req, res) => {

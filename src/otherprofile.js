@@ -1,30 +1,55 @@
 import React from "react";
 import axios from "./axios";
 
-class Welcome extends React.Component {
+class OtherProfile extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: null,
+      name: "",
+      lastName: "",
+      email: "",
+      bio: "",
+      picurl:
+        "https://static-cdn.jtvnw.net/jtv_user_pictures/madcitygg-profile_image-d182e6f9183999a2-300x300.jpeg",
+      modal: false
+    };
+  }
+
   componentDidMount() {
-    axios.get(`/get-user/${this.props.match.params.userId}`).then(resp => {});
+    console.log(
+      "loggin in other profile",
+      this.props,
+      this.props.match.params.userId
+    );
+    axios.get(`/other-user/${this.props.match.params.userId}`).then(resp => {
+      console.log("axios in other :", this.props.match.params.userId);
+      this.setState({
+        id: resp.data.id,
+        name: resp.data.first_name,
+        lastName: resp.data.last_name,
+        email: resp.data.email,
+        picurl: resp.data.picurl,
+        bio: resp.data.bio
+      });
+    });
   }
   render() {
     return (
       <div>
-        <h1> The OtherProfile </h1>
-        <img id="picInProfile" src={props.picurl} />
-        <textarea defaultValue={props.bio} />
-        <div>
-          <h1>
-            {props.firstName} {props.lastName} {props.bio}
-          </h1>
-
-          {props.showBio ? (
-            <textarea onKeyDown={props.setBio} defaultValue={props.bio} />
-          ) : (
-            <p onClick={props.toggleBio}>Update your bio.</p>
-          )}
-        </div>
+        <h1>
+          HEEEEEELLLL NOOO The OtherProfile {this.state.lastName}{" "}
+          {this.state.name} {this.state.bio}
+        </h1>
       </div>
     );
   }
 }
 
 export default OtherProfile;
+
+// <textarea defaultValue={this.state.bio} />
+//
+// <img id="picInProfile" src={this.state.picurl} />
+//
+// {this.state.name} {this.state.last_name} {this.state.bio}

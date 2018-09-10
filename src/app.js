@@ -22,6 +22,8 @@ import Header from "./header";
 
 import Profile from "./profile";
 
+import OtherProfile from "./otherprofile";
+
 import { BrowserRouter, Route } from "react-router-dom";
 
 //////////////////////////////////////////
@@ -139,6 +141,7 @@ class App extends React.Component {
         <BrowserRouter>
           <div>
             <Route
+              exact
               path="/"
               render={() => (
                 <Profile
@@ -153,18 +156,7 @@ class App extends React.Component {
                 />
               )}
             />
-            <Route
-              path="user/:id"
-              render={() => (
-                <Profile
-                  id={this.state.id}
-                  firstName={this.state.name}
-                  lastName={this.state.last_name}
-                  picurl={this.state.picurl}
-                  bio={this.state.bio}
-                />
-              )}
-            />
+            <Route exact path="/user/:userId" component={OtherProfile} />
           </div>
         </BrowserRouter>
       </div>

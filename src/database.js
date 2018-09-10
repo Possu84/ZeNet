@@ -46,3 +46,7 @@ module.exports.uploadBio = function uploadBio(bio, id) {
     [bio, id]
   );
 };
+
+module.exports.otherUser = function getUser(id) {
+  return db.query(` SELECT * FROM users WHERE id = $1 `, [id]);
+};

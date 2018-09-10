@@ -9,14 +9,16 @@ function Profile(props) {
       <img id="picInProfile" src={props.picurl} />
 
       <div>
-        <h1>
+        <h1 id="small_text">
           {props.firstName} {props.lastName} {props.bio}
         </h1>
 
         {props.showBio ? (
           <textarea onKeyDown={props.setBio} defaultValue={props.bio} />
         ) : (
-          <p onClick={props.toggleBio}>Update your bio.</p>
+          <p id="small_text" onClick={props.toggleBio}>
+            Update your bio.
+          </p>
         )}
       </div>
     </div>
