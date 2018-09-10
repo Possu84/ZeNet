@@ -6,9 +6,7 @@ function ProfilePic(props) {
   console.log("pic url", props.picurl);
   return (
     <div onClick={props.toggleModal}>
-      <img src={props.picurl} />
-
-      <h1> HEY HEY HEY </h1>
+      <img id="profilepic" src={props.picurl} />
     </div>
   );
 }

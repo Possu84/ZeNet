@@ -185,6 +185,18 @@ app.post("/uploadPic", uploader.single("file"), s3.upload, (req, res) => {
     });
 });
 
+////////////////upload a bio//////////////////
+
+app.post("/profile", (req, res) => {
+  console.log("Bio in Server: ", req.body.bio);
+  database.uploadBio(req.body.bio, req.session.userId).catch(err => {
+    console.log("Error in POST profile, Bio: ", err);
+    res.status(500).json({
+      success: false
+    });
+  });
+});
+
 ///////////DONT TOUCH/////MUST BE LAST!!!!////////
 ////// needs to check if cookie sessions is present//////////
 app.get("*", (req, res) => {

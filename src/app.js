@@ -2,8 +2,6 @@ import React from "react";
 
 import ReactDOM from "react-dom";
 
-import { HashRouter, Route } from "react-router-dom";
-
 import Registration from "./registration";
 
 import Login from "./login";
@@ -17,6 +15,14 @@ import ProfilePic from "./profilePic";
 import LogoText from "./logotext";
 
 import Modal from "./modal";
+
+import Background from "./background";
+
+import Header from "./header";
+
+import Profile from "./profile";
+
+import { BrowserRouter, Route } from "react-router-dom";
 
 //////////////////////////////////////////
 
@@ -39,9 +45,18 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this);
 
     this.upLoadPic = this.upLoadPic.bind(this);
+
+    this.toggleBio = this.toggleBio.bind(this);
+
+    this.setBio = this.setBio.bind(this);
   } /// end of constructor
   handleChange(e) {
     this[e.target.name] = e.target.value;
+  }
+  toggleBio() {
+    this.setState({
+      showBio: !this.state.showBio
+    });
   }
 
   toggleModal() {
@@ -54,23 +69,43 @@ class App extends React.Component {
     axios.get("/getuser").then(({ data }) => {
       console.log(
         "login",
-        data,
+
         data.id,
         data.first_name,
         data.last_name,
         data.email,
-        data.picurl
+        data.picurl,
+        data.bio
       );
       this.setState({
         id: data.id,
         name: data.first_name,
         last_name: data.last_name,
         email: data.email,
-        picurl: data.picurl
+        picurl: data.picurl,
+        bio: data.bio,
+        showBio: false
       });
 
-      console.log(this.state);
+      console.log("logging the state", this.state);
     });
+  }
+
+  setBio(e) {
+    if (e.which === 13) {
+      this.setState({
+        bio: e.target.value,
+        showBio: false
+      });
+
+      axios
+        .post("/profile", {
+          bio: e.target.value
+        })
+        .catch(error => {
+          console.log("Error in AXIOS POST bio ", error);
+        });
+    }
   }
 
   upLoadPic(e) {
@@ -94,15 +129,35 @@ class App extends React.Component {
   }
 
   render() {
+    console.log("we are loging modal", this.state.modal);
     return (
       <div id="app_main">
-        <LogoText />
+        <Header />
         <ProfilePic picurl={this.state.picurl} toggleModal={this.toggleModal} />
         {this.state.modal && <Modal upLoadPic={this.upLoadPic} />}{" "}
         {/* this is conditional rendering */}
+        <BrowserRouter>
+          <Route
+            path="/"
+            render={() => (
+              <Profile
+                id={this.state.id}
+                firstName={this.state.name}
+                lastName={this.state.last_name}
+                picurl={this.state.picurl}
+                bio={this.state.bio}
+                showBio={this.state.showBio}
+                toggleBio={this.toggleBio}
+                setBio={this.setBio}
+              />
+            )}
+          />
+        </BrowserRouter>
       </div>
     );
   }
 }
 
 export default App;
+
+// <Route exact path="user/:id" component={OtherProfile} />;

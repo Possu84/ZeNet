@@ -11,6 +11,9 @@ body {
   flex-direction: column;
 }
 
+.welcome {
+}
+
 .logo {
   width: 100%;
 }
@@ -50,10 +53,51 @@ body {
 }
 
 .app_main {
+  width: 100%;
+
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+#header_component {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+#header_logo {
+  color: white;
+  height: 60px;
+  position: absolute;
+  align-content: center;
+  right: 49%;
+  left: 49%;
+  font-family: "Libre Barcode 128 Text", cursive;
+  font-size: 80px;
+}
+
+#profilepic {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  object-fit: cover;
+  top: 10px;
+  left: 10px;
+  border-radius: 5px;
+}
+
+#profile_container {
+  top: 100px;
+  left: 20px;
+  position: absolute;
+
+  background-color: red;
 }
 
 #uploadButton:hover {
@@ -85,14 +129,34 @@ body {
   bottom: 20%;
   left: 20%;
   right: 20%;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 1);
+
+  z-index: 3;
 }
 
-#smallLogo {
+#picInProfile {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  object-fit: cover;
+  margin-top: 20px;
+  margin-left: 20px;
+  border-radius: 5px;
+}
+
+.smallLogo {
   color: white;
   margin-top: 30%;
   font-size: 50px;
   font-family: "Libre Barcode 128 Text", cursive;
+}
+
+.profile_container {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: red;
 }
 
 #login_block {

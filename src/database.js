@@ -35,3 +35,14 @@ module.exports.updateImage = function updateImage(picUrl, id) {
     [picUrl, id]
   );
 };
+
+module.exports.uploadBio = function uploadBio(bio, id) {
+  return db.query(
+    `
+      UPDATE users
+      SET bio = $1
+      WHERE id = $2
+      `,
+    [bio, id]
+  );
+};
