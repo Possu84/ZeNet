@@ -36,11 +36,15 @@ class OtherProfile extends React.Component {
   }
   render() {
     return (
-      <div>
-        <h1>
-          HEEEEEELLLL NOOO The OtherProfile {this.state.lastName}{" "}
-          {this.state.name} {this.state.bio}
-        </h1>
+      <div id="profile_container">
+        <img id="picInProfile" src={this.state.picurl} />
+        <div>
+          <h1 id="small_text">
+            {this.state.lastName} {this.state.name} {this.state.bio}
+          </h1>
+
+          <button> Make a friend </button>
+        </div>
       </div>
     );
   }
