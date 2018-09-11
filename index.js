@@ -161,7 +161,6 @@ app.get("/getuser", (req, res) => {
   database
     .getUser(req.session.userId)
     .then(results => {
-      console.log("here are the Results", results.rows[0]);
       res.json(results.rows[0]);
     })
     .catch(err => {
@@ -203,13 +202,43 @@ app.get("/other-user/:userId", (req, res) => {
   database
     .otherUser(req.params.userId)
     .then(results => {
-      console.log("here are the Results", results.rows[0]);
       res.json(results.rows[0]);
     })
     .catch(err => {
       console.log("here is the err", err);
     });
 });
+
+//////////////////get the friendship status///////////////////
+
+app.get("/get-friendship/:id", (req, res) => {
+  console.log("get-friendship:", req.params.id, req.session.userId);
+  database
+    .getFriendshipStatus(req.params.id, req.session.userId)
+    .then(results => {
+      console.log("logging results", results);
+      res.json(results.rows[0]);
+    })
+    .catch(err => {
+      console.log("logging get friendship err", err);
+    });
+});
+
+/////////////////posting friendship request///////////////////
+
+app.post("/get-new-friend/", (req, res) => {
+  console.log("get-new-friendship:", req.body.id, req.session.userId);
+  database
+    .friendRequest(req.body.id, req.session.userId)
+    .then(results => {
+      // console.log("here are the get a friend results", results);
+      res.json(results.rows[0]);
+    })
+    .catch(err => {
+      console.log("logging the error in post friendship route", err);
+    });
+});
+
 ///////////DONT TOUCH/////MUST BE LAST!!!!////////
 ////// needs to check if cookie sessions is present//////////
 app.get("*", (req, res) => {

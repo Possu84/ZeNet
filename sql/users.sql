@@ -15,8 +15,13 @@ CREATE TABLE users (
 
 CREATE TABLE friendship (
         id          SERIAL PRIMARY KEY,
-        sender_id   VARCHAR(255) REFERENCES users (id),
-        receiver_id VARCHAR(255) REFERENCES users (id),
+        sender_id   INT NOT NULL REFERENCES users (id),
+        receiver_id INT NOT NULL REFERENCES users (id),
         status      INT NOT NULL DEFAULT 1
 
 );
+
+
+SELECT * FROM users;
+
+SELECT * FROM friendship;

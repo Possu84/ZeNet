@@ -69,16 +69,6 @@ class App extends React.Component {
 
   componentDidMount() {
     axios.get("/getuser").then(({ data }) => {
-      console.log(
-        "login",
-
-        data.id,
-        data.first_name,
-        data.last_name,
-        data.email,
-        data.picurl,
-        data.bio
-      );
       this.setState({
         id: data.id,
         name: data.first_name,
@@ -88,8 +78,6 @@ class App extends React.Component {
         bio: data.bio,
         showBio: false
       });
-
-      console.log("logging the state", this.state);
     });
   }
 
@@ -105,13 +93,12 @@ class App extends React.Component {
           bio: e.target.value
         })
         .catch(error => {
-          console.log("Error in AXIOS POST bio ", error);
+          console.log("error in the axios post", error);
         });
     }
   }
 
   upLoadPic(e) {
-    console.log("upload", e, e.target.files[0], FormData);
     let file = e.target.files[0];
 
     this.setState({ file: e.target.files[0] });
@@ -120,7 +107,6 @@ class App extends React.Component {
 
     fd.append("file", file);
     axios.post("/uploadPic", fd).then(({ data }) => {
-      console.log("logging data", data);
       // this.updateImage(data.picurl);
 
       this.setState({
@@ -131,7 +117,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log("we are loging modal", this.state.modal);
     return (
       <div id="app_main">
         <Header />

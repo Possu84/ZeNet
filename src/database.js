@@ -50,3 +50,29 @@ module.exports.uploadBio = function uploadBio(bio, id) {
 module.exports.otherUser = function getUser(id) {
   return db.query(` SELECT * FROM users WHERE id = $1 `, [id]);
 };
+
+module.exports.getFriendshipStatus = function getFriendshipStatus(
+  user1,
+  user2
+) {
+  return db.query(
+    `SELECT * FROM friendship
+      WHERE (sender_id = $1 AND receiver_id = $2)
+      OR(sender_id = $2 AND receiver_id = $1)
+       `,
+    [user1, user2]
+  );
+};
+
+module.exports.friendRequest = function friendRequest(user1, user2) {
+  return db.query(
+    `
+
+    INSERT INTO friendship (sender_id, receiver_id)
+    VALUES ($1, $2)
+    RETURNING sender_id, status
+
+    `,
+    [user1, user2]
+  );
+};

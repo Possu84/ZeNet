@@ -19,11 +19,6 @@ class OtherProfile extends React.Component {
   }
 
   componentDidMount() {
-    console.log(
-      "loggin in other profile",
-      this.props,
-      this.props.match.params.userId
-    );
     axios.get(`/other-user/${this.props.match.params.userId}`).then(resp => {
       console.log("axios in other :", this.props.match.params.userId);
       this.setState({
