@@ -41,3 +41,30 @@ export default class App extends React.Component {
     );
   }
 }
+
+
+
+--------------------------------------------------------------------------------------------------
+
+
+function mapStateToProps(state) {
+    return {
+        friends: state.friendsWannabes && state.friendsWannabes.filter(user => user.status == 2),
+        wannabes: state.friendsWannabes && state.friendsWannabes.filter( user => user.status ==1)
+
+    }
+
+}
+
+render () {
+    return (
+        <div>
+            {this.wannabes.map(
+                wannabe =>{
+                    <div key={}>
+                        {wannabe.first} {wannabe.lasts}
+                    </div>
+                }
+            )}
+    )
+}

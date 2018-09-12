@@ -226,7 +226,7 @@ app.get("/get-friendship/:id", (req, res) => {
 
 /////////////////posting friendship request///////////////////
 
-app.post("/get-new-friend/", (req, res) => {
+app.post("/make-new-friend/", (req, res) => {
   console.log("get-new-friendship:", req.body.id, req.session.userId);
   database
     .friendRequest(req.body.id, req.session.userId)
@@ -236,6 +236,22 @@ app.post("/get-new-friend/", (req, res) => {
     })
     .catch(err => {
       console.log("logging the error in post friendship route", err);
+    });
+});
+
+/////////////////cancel- delete friendrequest///////////////////////
+
+app.post("/cancel-delete-request/", (req, res) => {
+  console.log("cancel-delete-request", req.body.id, req.session.userId);
+  database
+    .cancelDeleteRequest(req.body.id, req.session.userId)
+    .then(results => {
+      console.log("logging the result at cancel delete ", result);
+      // console.log("here are the get a friend results", results);
+      res.json(results.rows[0]);
+    })
+    .catch(err => {
+      console.log("logging the error in cancel delete", err);
     });
 });
 

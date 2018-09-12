@@ -76,3 +76,20 @@ module.exports.friendRequest = function friendRequest(user1, user2) {
     [user1, user2]
   );
 };
+
+module.exports.cancelDeleteRequest = function cancelDeleteRequest(
+  user1,
+  user2
+) {
+  return db.query(
+    `
+
+
+DELETE FROM friendship
+WHERE (sender_id = $1 AND receiver_id = $2)
+OR(sender_id = $2 AND receiver_id = $1)
+
+    `,
+    [user1, user2]
+  );
+};

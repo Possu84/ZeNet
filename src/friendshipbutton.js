@@ -15,10 +15,16 @@ export default class FriendshipButton extends React.Component {
     console.log("did mount in the friendship button :", this.props.id); /// gives us the url from url
 
     axios.get("/get-friendship/" + this.props.id).then(result => {
-      console.log(
-        "logging the result in component did mount friendship button",
-        result
-      );
+      if (result.data.status == 1) {
+        this.setState({
+          status: 1
+        });
+      }
+      if (result.data.status == 2) {
+        this.setState({
+          status: 2
+        });
+      }
     });
   }
 
@@ -31,7 +37,7 @@ export default class FriendshipButton extends React.Component {
       return "Make a new friend";
     }
     if (this.state.status == 1) {
-      return "Frind Pending";
+      return "cancel";
     } else if (this.state.status == 2) {
       return "'delete' your 'friend'";
     }
@@ -39,20 +45,57 @@ export default class FriendshipButton extends React.Component {
 
   handleRequest() {
     console.log("at button handler user id:", this.props.id);
-    axios
-      .post("/get-new-friend/", {
-        id: this.props.id
-        /* we are exporting the other users id value here
-        and labeling it as an id. It will be accessasible
-        with req.body.id on the server. This is req.body
-        instead of parames cause we are making it is an object*/
-      })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log("logging error", err);
-      });
+
+    if (this.state.status == 0) {
+      console.log("sending new friend req");
+      axios
+        .post("/make-new-friend/", {
+          id: this.props.id
+          /* we are exporting the other users id value here
+            and labeling it as an id. It will be accessasible
+            with req.body.id on the server. This is req.body
+            instead of parames cause we are making it is an object*/
+        })
+        .then(res => {
+          console.log("we are loging results in send new friend request", res);
+        })
+        .catch(err => {
+          console.log("logging error in send new friend request", err);
+        });
+    }
+    if (this.state.status == 1) {
+      console.log("cancel friend request");
+      axios
+        .post("/cancel-delete-request/", {
+          id: this.props.id
+          /* we are exporting the other users id value here
+              and labeling it as an id. It will be accessasible
+              with req.body.id on the server. This is req.body
+              instead of parames cause we are making it is an object*/
+        })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log("logging error", err);
+        });
+    } else if (this.state.status == 2) {
+      axios
+        .post("/cancel-delete-request/", {
+          id: this.props.id
+          /* we are exporting the other users id value here
+                and labeling it as an id. It will be accessasible
+                with req.body.id on the server. This is req.body
+                instead of parames cause we are making it is an object*/
+        })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log("logging error", err);
+        });
+    }
+
     ///// this updates the status based on the status of the friendship
   }
 

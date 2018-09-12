@@ -73,6 +73,9 @@ body {
   right: 0;
   height: 80px;
   background-color: rgba(0, 0, 0, 0.9);
+  -webkit-box-shadow: 0px -10px 39px 13px rgba(128, 128, 128, 1);
+  -moz-box-shadow: 0px -10px 39px 13px rgba(128, 128, 128, 1);
+  box-shadow: 0px -10px 39px 13px rgba(128, 128, 128, 1);
 }
 
 #header_logo {
