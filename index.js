@@ -216,7 +216,7 @@ app.get("/get-friendship/:id", (req, res) => {
   database
     .getFriendshipStatus(req.params.id, req.session.userId)
     .then(results => {
-      console.log("logging results", results.rows[0].sender_id);
+      console.log("logging results friendship status", results);
       res.json(results.rows[0]);
     })
     .catch(err => {
@@ -246,7 +246,7 @@ app.post("/cancel-delete-request/", (req, res) => {
   database
     .cancelDeleteRequest(req.body.id, req.session.userId)
     .then(results => {
-      console.log("logging the result at cancel delete ", result);
+      console.log("logging the result at cancel delete ", results);
       // console.log("here are the get a friend results", results);
       res.json(results.rows[0]);
     })
@@ -258,15 +258,16 @@ app.post("/cancel-delete-request/", (req, res) => {
 ////////////////confirm friend reguest/////////////
 
 app.post("/confirm-friend-request", (req, res) => {
+  console.log("logging in the confirm", req.body.id, req.session.userId);
   database
-    .confirmFriendRequest()
+    .confirmFriendRequest(req.body.id, req.session.userId)
     .then(result => {
-      console.log("logging the result at cancel delete ", result);
+      console.log("logging the result confirm ", result);
       // console.log("here are the get a friend results", results);
-      res.json(results.rows[0]);
+      res.json(result);
     })
     .catch(err => {
-      console.log("logging the error in cancel delete", err);
+      console.log("logging the error in confirm", err);
     });
 });
 
