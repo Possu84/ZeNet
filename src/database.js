@@ -93,3 +93,17 @@ OR(sender_id = $2 AND receiver_id = $1)
     [user1, user2]
   );
 };
+
+module.exports.confirmFriendRequest = function confirmFriendRequest() {
+  return db.query(
+    `
+        UPDATE friendship SET status = 2
+
+        WHERE NOT status = 2
+        WHERE (sender_id = $1 AND receiver_id = $2)
+        OR(sender_id = $2 AND receiver_id = $1)
+
+
+        `
+  );
+};

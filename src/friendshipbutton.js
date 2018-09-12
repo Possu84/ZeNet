@@ -15,14 +15,20 @@ export default class FriendshipButton extends React.Component {
     console.log("did mount in the friendship button :", this.props.id); /// gives us the url from url
 
     axios.get("/get-friendship/" + this.props.id).then(result => {
+      console.log(
+        "loggingresults in the get the friendship status:",
+        result.data.sender_id
+      );
       if (result.data.status == 1) {
         this.setState({
-          status: 1
+          status: 1,
+          sender_id: result.data.sender_id
         });
       }
       if (result.data.status == 2) {
         this.setState({
-          status: 2
+          status: 2,
+          sender_id: result.data.sender_id
         });
       }
     });
@@ -37,14 +43,21 @@ export default class FriendshipButton extends React.Component {
       return "Make a new friend";
     }
     if (this.state.status == 1) {
-      return "cancel";
+      console.log(this.props.id, this.state.sender_id);
+      if (this.props.id != this.state.sender_id) {
+        //// using here unequality cause imported the wrong id
+        return "accept friend request";
+      } else {
+        return "cancel friend request";
+      }
     } else if (this.state.status == 2) {
       return "'delete' your 'friend'";
     }
   }
 
-  handleRequest() {
-    console.log("at button handler user id:", this.props.id);
+  handleRequest(e) {
+    // console.log("at button handler user id:", this.props.id);
+    console.log("value", e.target.value);
 
     if (this.state.status == 0) {
       console.log("sending new friend req");
@@ -52,9 +65,9 @@ export default class FriendshipButton extends React.Component {
         .post("/make-new-friend/", {
           id: this.props.id
           /* we are exporting the other users id value here
-            and labeling it as an id. It will be accessasible
-            with req.body.id on the server. This is req.body
-            instead of parames cause we are making it is an object*/
+                and labeling it as an id. It will be accessasible
+                with req.body.id on the server. This is req.body
+                instead of parames cause we are making it is an object*/
         })
         .then(res => {
           console.log("we are loging results in send new friend request", res);
@@ -64,21 +77,32 @@ export default class FriendshipButton extends React.Component {
         });
     }
     if (this.state.status == 1) {
-      console.log("cancel friend request");
-      axios
-        .post("/cancel-delete-request/", {
-          id: this.props.id
-          /* we are exporting the other users id value here
-              and labeling it as an id. It will be accessasible
-              with req.body.id on the server. This is req.body
-              instead of parames cause we are making it is an object*/
-        })
-        .then(res => {
-          console.log(res);
-        })
-        .catch(err => {
-          console.log("logging error", err);
+      if (
+        e.target.value == "cancel friend request" &&
+        e.target.value == "'delete' your 'friend'"
+      ) {
+        console.log("cancel friend request");
+        axios
+          .post("/cancel-delete-request/", {
+            id: this.props.id
+            /* we are exporting the other users id value here
+                    and labeling it as an id. It will be accessasible
+                    with req.body.id on the server. This is req.body
+                    instead of parames cause we are making it is an object*/
+          })
+          .then(res => {
+            console.log(res);
+          })
+          .catch(err => {
+            console.log("logging error", err);
+          });
+      } else if (e.target.value == "accept friend request") {
+        console.log("confirm a friend");
+
+        axios.post("/confirm-friend-request").then(result => {
+          console.log("logging results in the confirm friend", result);
         });
+      }
     } else if (this.state.status == 2) {
       axios
         .post("/cancel-delete-request/", {

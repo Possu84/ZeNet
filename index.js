@@ -216,7 +216,7 @@ app.get("/get-friendship/:id", (req, res) => {
   database
     .getFriendshipStatus(req.params.id, req.session.userId)
     .then(results => {
-      console.log("logging results", results);
+      console.log("logging results", results.rows[0].sender_id);
       res.json(results.rows[0]);
     })
     .catch(err => {
@@ -231,7 +231,7 @@ app.post("/make-new-friend/", (req, res) => {
   database
     .friendRequest(req.body.id, req.session.userId)
     .then(results => {
-      // console.log("here are the get a friend results", results);
+      console.log("here are the get a friend results", results);
       res.json(results.rows[0]);
     })
     .catch(err => {
@@ -246,6 +246,21 @@ app.post("/cancel-delete-request/", (req, res) => {
   database
     .cancelDeleteRequest(req.body.id, req.session.userId)
     .then(results => {
+      console.log("logging the result at cancel delete ", result);
+      // console.log("here are the get a friend results", results);
+      res.json(results.rows[0]);
+    })
+    .catch(err => {
+      console.log("logging the error in cancel delete", err);
+    });
+});
+
+////////////////confirm friend reguest/////////////
+
+app.post("/confirm-friend-request", (req, res) => {
+  database
+    .confirmFriendRequest()
+    .then(result => {
       console.log("logging the result at cancel delete ", result);
       // console.log("here are the get a friend results", results);
       res.json(results.rows[0]);
