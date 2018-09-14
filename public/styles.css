@@ -61,6 +61,29 @@ body {
   flex-direction: column;
 }
 
+#friends_container {
+  top: 20%;
+  left: 5%;
+  position: absolute;
+  display: flex;
+
+  flex-direction: row;
+
+  background-color: silver;
+}
+
+#frenemies_container {
+  bottom: 20%;
+  left: 5%;
+
+  position: absolute;
+  display: flex;
+
+  flex-direction: row;
+
+  background-color: silver;
+}
+
 #small_text {
   font-size: 50px;
   font-family: "Libre Barcode 128 Text", cursive;

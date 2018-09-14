@@ -98,7 +98,7 @@ module.exports.confirmFriendRequest = function confirmFriendRequest(
   user1,
   user2
 ) {
-  console.log();
+  console.log("running confirmFriendRequest whatuppppp", user1, user2);
   return db.query(
     `
         UPDATE friendship
@@ -127,3 +127,8 @@ module.exports.getFriendsAndWanabes = function getFriendsAndWanabes(id) {
     [id]
   );
 };
+
+function getUsersByIds(arrayOfIds) {
+  const query = `SELECT * FROM users WHERE id = ANY($1)`;
+  return db.query(query, [arrayOfIds]);
+}

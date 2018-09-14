@@ -24,7 +24,7 @@ import { createStore, applyMiddleware } from "redux";
 
 import { composeWithDevTools } from "redux-devtools-extension";
 
-import { getSocket } from "./sockets";
+import { getSocket } from "./socket";
 /// checks if the pathname is welcome and re-routs you to the right page accordingly
 
 ///////

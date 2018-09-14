@@ -5,7 +5,6 @@ import { getFriendsAndWanabes, acceptFriendRequest, unfriend } from "./actions";
 
 class FriendsAndFrenemies extends React.Component {
   componentDidMount() {
-    console.log("mount success");
     this.props.dispatch(getFriendsAndWanabes());
   }
 
@@ -17,23 +16,30 @@ class FriendsAndFrenemies extends React.Component {
     if (!this.props.wanabees) {
       return null;
     }
-    console.log("logging this.props", this.props);
 
     return (
       <div>
-        <div>
+        <div id="friends_container">
           <h1>Friends</h1>
-          {this.props.friends.map(friend => {
+          {this.props.friends.map(friends => {
             return (
               <div id="profile_container_friends">
-                <img id="picInProfile" src={friend.picurl} /> <br />
-                {friend.first_name} <br />
-                {friend.last_name}
+                <img id="picInProfile" src={friends.picurl} /> <br />
+                {friends.first_name} <br />
+                {friends.last_name}
+                <button
+                  onClick={() => {
+                    this.props.dispatch(unfriend(friends.id));
+                  }}
+                >
+                  {" "}
+                  terminate{" "}
+                </button>
               </div>
             );
           })}
         </div>
-        <div>
+        <div id="frenemies_container">
           <h1>Frenemies</h1>
           {this.props.wanabees.map(wanabees => {
             return (
@@ -41,6 +47,14 @@ class FriendsAndFrenemies extends React.Component {
                 <img id="picInProfile" src={wanabees.picurl} /> <br />
                 {wanabees.first_name} <br />
                 {wanabees.last_name}
+                <button
+                  onClick={() => {
+                    this.props.dispatch(acceptFriendRequest(wanabees.id));
+                  }}
+                >
+                  {" "}
+                  Accept friend reguest{" "}
+                </button>
               </div>
             );
           })}

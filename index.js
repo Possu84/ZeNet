@@ -137,7 +137,6 @@ app.get("/login", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  console.log("logging login");
   let { email, password } = req.body;
   database
     .login(email)
@@ -164,15 +163,12 @@ app.post("/login", (req, res) => {
 ///////////////////////////////////////////////////
 
 app.get("/getuser", (req, res) => {
-  console.log("get Users", req.session.userId);
   database
     .getUser(req.session.userId)
     .then(results => {
       res.json(results.rows[0]);
     })
-    .catch(err => {
-      console.log("here is teh err", err);
-    });
+    .catch(err => {});
 });
 
 ////////////////uploadpic///////////////////
@@ -184,7 +180,6 @@ app.post("/uploadPic", uploader.single("file"), s3.upload, (req, res) => {
       res.json(results.rows[0]);
     })
     .catch(err => {
-      console.log("Error in writeFileTo: ", err);
       res.status(500).json({
         success: false
       });
@@ -194,9 +189,7 @@ app.post("/uploadPic", uploader.single("file"), s3.upload, (req, res) => {
 ////////////////upload a bio//////////////////
 
 app.post("/profile", (req, res) => {
-  console.log("Bio in Server: ", req.body.bio);
   database.uploadBio(req.body.bio, req.session.userId).catch(err => {
-    console.log("Error in POST profile, Bio: ", err);
     res.status(500).json({
       success: false
     });
@@ -205,40 +198,31 @@ app.post("/profile", (req, res) => {
 
 ///////////////get other user/////////////////////////
 app.get("/other-user/:userId", (req, res) => {
-  console.log("get Users", req.params.userId);
   database
     .otherUser(req.params.userId)
     .then(results => {
       res.json(results.rows[0]);
     })
-    .catch(err => {
-      console.log("here is the err", err);
-    });
+    .catch(err => {});
 });
 
 //////////////////get the friendship status///////////////////
 
 app.get("/get-friendship/:id", (req, res) => {
-  console.log("get-friendship:", req.params.id, req.session.userId);
   database
     .getFriendshipStatus(req.params.id, req.session.userId)
     .then(results => {
-      console.log("logging results friendship status", results);
       res.json(results.rows[0]);
     })
-    .catch(err => {
-      console.log("logging get friendship err", err);
-    });
+    .catch(err => {});
 });
 
 /////////////////posting friendship request///////////////////
 
 app.post("/make-new-friend/", (req, res) => {
-  console.log("get-new-friendship:", req.body.id, req.session.userId);
   database
     .friendRequest(req.body.id, req.session.userId)
     .then(results => {
-      console.log("here are the get a friend results", results);
       res.json(results.rows[0]);
     })
     .catch(err => {
@@ -248,13 +232,11 @@ app.post("/make-new-friend/", (req, res) => {
 
 /////////////////cancel- delete friendrequest///////////////////////
 
-app.post("/cancel-delete-request/", (req, res) => {
-  console.log("cancel-delete-request", req.body.id, req.session.userId);
+app.post("/cancel-delete-request", (req, res) => {
+  console.log("fiering the route");
   database
     .cancelDeleteRequest(req.body.id, req.session.userId)
     .then(results => {
-      console.log("logging the result at cancel delete ", results);
-      // console.log("here are the get a friend results", results);
       res.json(results.rows[0]);
     })
     .catch(err => {
@@ -265,12 +247,10 @@ app.post("/cancel-delete-request/", (req, res) => {
 ////////////////confirm friend reguest/////////////
 
 app.post("/confirm-friend-request", (req, res) => {
-  console.log("logging in the confirm", req.body.id, req.session.userId);
+  console.log("confirming friendnndndndndnn");
   database
     .confirmFriendRequest(req.body.id, req.session.userId)
     .then(result => {
-      console.log("logging the result confirm ", result);
-      // console.log("here are the get a friend results", results);
       res.json(result);
     })
     .catch(err => {
@@ -280,13 +260,10 @@ app.post("/confirm-friend-request", (req, res) => {
 
 /////////////////// get friend and friendabies/////////////
 
-app.get("/get-friends-and-wanabes/", (req, res) => {
-  console.log("get friends and wanabes", req.session.userId);
+app.get("/get-friends-and-wanabes", (req, res) => {
   database
     .getFriendsAndWanabes(req.session.userId)
     .then(result => {
-      console.log("logging the result confirm ", result);
-      // console.log("here are the get a friend results", results);
       res.json(result.rows);
     })
     .catch(err => {
@@ -310,11 +287,44 @@ server.listen(8080, function() {
   console.log("we are listening.....");
 });
 
+// let onlineUsers = {};
+//
+// const socketId = socket.id;
+//
+// const userId = socket.request.session.userId;
+// // add socketid : userid to onlineUsers object
+// onlineUsers[socketId] = userId;
+//
+// let arrayOfUserIds = Object.values(onlineUsers);
+
+// database.getUsersByIds(arrayOfUserIds).then(results => {
+//   // result = array of objects that contains
+//   // users first name, last name, email, etc
+//   // emit to client
+//   //emits the message to person who just connexted
+//   socket.emit("onlineUsers", results);
+// });
+
+// socket.broadcast.emit("userJoined", payload);
+
+// socket.on("disconnect", function() {
+//   console.log(`socket with id ${socket.id} has left`);
+//
+//   io.sockets.emit("userLeft", userId);
+// });
+
 io.on("connection", function(socket) {
   console.log(`socket with id ${socket.id} has connected!`);
+
   if (!socket.request.session || !socket.request.session.user) {
+    //// if you need to connect to socket you need to use this socket.re.....
     return socket.disconnect(true);
   }
+
+  /// we are emiting here and listening in client side
+  socket.emit("animals", {
+    name: sloth
+  });
 
   const userId = socket.request.session.user.id;
 });
