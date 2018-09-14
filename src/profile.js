@@ -10,7 +10,7 @@ function Profile(props) {
 
       <div>
         <h1 id="small_text">
-          {props.firstName} {props.lastName} {props.bio}
+          {props.firstName} {props.lastName} <br /> {props.bio}
         </h1>
 
         {props.showBio ? (

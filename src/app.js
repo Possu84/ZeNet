@@ -22,6 +22,8 @@ import Header from "./header";
 
 import Profile from "./profile";
 
+import FriendsAndFrenemies from "./friends";
+
 import OtherProfile from "./otherprofile";
 
 import { BrowserRouter, Route } from "react-router-dom";
@@ -142,6 +144,7 @@ class App extends React.Component {
               )}
             />
             <Route exact path="/user/:userId" component={OtherProfile} />
+            <Route exact path="/friends" component={FriendsAndFrenemies} />
           </div>
         </BrowserRouter>
       </div>
@@ -150,5 +153,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-// <Route exact path="user/:id" component={OtherProfile} />;

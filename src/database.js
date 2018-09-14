@@ -111,3 +111,19 @@ module.exports.confirmFriendRequest = function confirmFriendRequest(
     [user1, user2]
   );
 };
+
+module.exports.getFriendsAndWanabes = function getFriendsAndWanabes(id) {
+  return db.query(
+    `
+
+    SELECT users.id, first_name, last_name, picUrl, status
+    FROM friendship
+    JOIN users
+    ON (status = 1 AND receiver_id = $1 AND sender_id = users.id)
+    OR (status = 2 AND receiver_id = $1 AND sender_id = users.id)
+    OR (status = 2 AND sender_id = $1 AND receiver_id = users.id)
+
+`,
+    [id]
+  );
+};

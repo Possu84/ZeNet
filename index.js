@@ -22,6 +22,10 @@ const s3 = require("./s3.js");
 
 const config = require("./config.json");
 
+const server = require("http").Server(app);
+
+const io = require("socket.io")(server, { origins: "localhost:8080" });
+
 ///////MIDLEWARE//////////////////////////
 
 //////////NO TOUCHY//////////////////////////
@@ -55,12 +59,15 @@ var uploader = multer({
 
 ///////////////////////////////////////////////////////
 
-app.use(
-  cookieSession({
-    secret: "I am always Hangry.",
-    maxAge: 1000 * 60 * 60 * 24 * 14
-  })
-);
+const cookieSessionMiddleware = cookieSession({
+  secret: `I'm always angry.`,
+  maxAge: 1000 * 60 * 60 * 24 * 90
+});
+
+app.use(cookieSessionMiddleware);
+io.use(function(socket, next) {
+  cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 app.use(
   require("body-parser").urlencoded({
@@ -271,6 +278,22 @@ app.post("/confirm-friend-request", (req, res) => {
     });
 });
 
+/////////////////// get friend and friendabies/////////////
+
+app.get("/get-friends-and-wanabes/", (req, res) => {
+  console.log("get friends and wanabes", req.session.userId);
+  database
+    .getFriendsAndWanabes(req.session.userId)
+    .then(result => {
+      console.log("logging the result confirm ", result);
+      // console.log("here are the get a friend results", results);
+      res.json(result.rows);
+    })
+    .catch(err => {
+      console.log("logging the error in confirm", err);
+    });
+});
+
 ///////////DONT TOUCH/////MUST BE LAST!!!!////////
 ////// needs to check if cookie sessions is present//////////
 app.get("*", (req, res) => {
@@ -283,4 +306,15 @@ app.get("*", (req, res) => {
 
 // ////////////LISTENER////////////////////
 
-app.listen(8080, function() {});
+server.listen(8080, function() {
+  console.log("we are listening.....");
+});
+
+io.on("connection", function(socket) {
+  console.log(`socket with id ${socket.id} has connected!`);
+  if (!socket.request.session || !socket.request.session.user) {
+    return socket.disconnect(true);
+  }
+
+  const userId = socket.request.session.user.id;
+});

@@ -108,6 +108,13 @@ body {
   background-color: silver;
 }
 
+#friendlist {
+  top: 100px;
+  left: 20px;
+  position: absolute;
+
+  background-color: silver;
+}
 #uploadButton:hover {
   cursor: pointer;
   top: 10px;
@@ -157,14 +164,6 @@ body {
   margin-top: 30%;
   font-size: 50px;
   font-family: "Libre Barcode 128 Text", cursive;
-}
-
-.profile_container {
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background-color: red;
 }
 
 #login_block {
