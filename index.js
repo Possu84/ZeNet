@@ -261,6 +261,7 @@ app.post("/confirm-friend-request", (req, res) => {
 /////////////////// get friend and friendabies/////////////
 
 app.get("/get-friends-and-wanabes", (req, res) => {
+  console.log("get friends and wanabees post", req.session.userId);
   database
     .getFriendsAndWanabes(req.session.userId)
     .then(result => {
@@ -287,44 +288,37 @@ server.listen(8080, function() {
   console.log("we are listening.....");
 });
 
-// let onlineUsers = {};
-//
-// const socketId = socket.id;
-//
-// const userId = socket.request.session.userId;
-// // add socketid : userid to onlineUsers object
-// onlineUsers[socketId] = userId;
-//
-// let arrayOfUserIds = Object.values(onlineUsers);
-
-// database.getUsersByIds(arrayOfUserIds).then(results => {
-//   // result = array of objects that contains
-//   // users first name, last name, email, etc
-//   // emit to client
-//   //emits the message to person who just connexted
-//   socket.emit("onlineUsers", results);
-// });
-
-// socket.broadcast.emit("userJoined", payload);
-
-// socket.on("disconnect", function() {
-//   console.log(`socket with id ${socket.id} has left`);
-//
-//   io.sockets.emit("userLeft", userId);
-// });
+let onlineUsers = {};
 
 io.on("connection", function(socket) {
   console.log(`socket with id ${socket.id} has connected!`);
-
-  if (!socket.request.session || !socket.request.session.user) {
+  const userId = socket.request.session.userId;
+  // add socketid : userid to onlineUsers object
+  if (!userId) {
     //// if you need to connect to socket you need to use this socket.re.....
     return socket.disconnect(true);
   }
+  const socketId = socket.id;
 
-  /// we are emiting here and listening in client side
-  socket.emit("animals", {
-    name: sloth
+  onlineUsers[socketId] = userId;
+
+  let arrayOfUserIds = Object.values(onlineUsers);
+
+  database.getUsersByIds(arrayOfUserIds).then(results => {
+    // result = array of objects that contains
+    // users first name, last name, email, etc
+    // emit to client
+    //emits the message to person who just connexted
+    socket.emit("onlineUsers", results);
   });
 
-  const userId = socket.request.session.user.id;
+  // socket.broadcast.emit("userJoined", payload);
+
+  socket.on("disconnect", function() {
+    console.log(`socket with id ${socket.id} has left`);
+
+    io.sockets.emit("userLeft", userId);
+  });
+
+  /// we are emiting here and listening in client side
 });

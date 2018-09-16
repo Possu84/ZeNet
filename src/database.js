@@ -68,7 +68,7 @@ module.exports.friendRequest = function friendRequest(user1, user2) {
   return db.query(
     `
 
-    INSERT INTO friendship (sender_id, receiver_id)
+    INSERT INTO friendship (receiver_id, sender_id)
     VALUES ($1, $2)
     RETURNING sender_id, status
 
@@ -128,7 +128,7 @@ module.exports.getFriendsAndWanabes = function getFriendsAndWanabes(id) {
   );
 };
 
-function getUsersByIds(arrayOfIds) {
-  const query = `SELECT * FROM users WHERE id = ANY($1)`;
+module.exports.getUsersByIds = function getUsersByIds(arrayOfIds) {
+  const query = `SELECT id, first_name, last_name, picurl FROM users WHERE id = ANY($1)`;
   return db.query(query, [arrayOfIds]);
-}
+};

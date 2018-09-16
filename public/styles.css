@@ -120,14 +120,19 @@ body {
   object-fit: cover;
   top: 10px;
   left: 10px;
-  border-radius: 5px;
+
+  border-radius: 200px 200px 200px 0px;
+
+  border: 0px solid #000000;
 }
 
 #profile_container {
   top: 100px;
   left: 20px;
   position: absolute;
+  border-radius: 200px 200px 200px 0px;
 
+  border: 0px solid #000000;
   background-color: silver;
 }
 

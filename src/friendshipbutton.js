@@ -39,7 +39,7 @@ export default class FriendshipButton extends React.Component {
       return "Make a new friend";
     }
     if (this.state.status == 1) {
-      if (this.props.id != this.state.sender_id) {
+      if (this.props.id == this.state.sender_id) {
         //// using here unequality cause imported the wrong id
         return "accept friend request";
       } else {
