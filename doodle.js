@@ -166,3 +166,5 @@ function Greetee(props) {
 } // end Greetee
 
 /// checks if the pathname is welcome and re-routs you
+
+elem.scrollTop = elem.scrolHeight;

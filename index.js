@@ -305,11 +305,24 @@ io.on("connection", function(socket) {
   let arrayOfUserIds = Object.values(onlineUsers);
 
   database.getUsersByIds(arrayOfUserIds).then(results => {
+    console.log("getUsersByIds result in index:", result);
     // result = array of objects that contains
     // users first name, last name, email, etc
     // emit to client
     //emits the message to person who just connexted
     socket.emit("onlineUsers", results);
+  });
+
+  socket.on("connection", function() {
+    console.log(`chatMessage`, function(message) {
+      database.getReacentChatMessages().then(msg => {});
+      io.sockets.emit("chatMessage", {
+        message: message,
+        id: userId,
+        ts:
+          new Date().toLocaleDateString() + "" + newDAte().toLocaleTimeString()
+      });
+    });
   });
 
   // socket.broadcast.emit("userJoined", payload);

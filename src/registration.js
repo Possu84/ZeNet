@@ -62,27 +62,34 @@ class Registration extends React.Component {
           name="first_name_input"
           placeholder="first name.."
         />
+        <br />
         <input
           onChange={this.handleChange}
           name="last_name_input"
           placeholder="last name.."
         />
+        <br />
         <input
           onChange={this.handleChange}
           name="email_input"
           placeholder="email.."
         />
+        <br />
         <input
           onChange={this.handleChange}
           name="password_input"
           placeholder="password.."
         />
+        <br />
 
         <button onClick={this.registerClick} name="register">
           register
         </button>
 
-        <Link to="/login">Click here to Log in!</Link>
+        <br />
+        <Link className="link_text" to="/login">
+          Login
+        </Link>
       </div>
     ); // end of return
   } // end of renderer

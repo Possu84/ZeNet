@@ -43,15 +43,21 @@ class Login extends React.Component {
           <div className="error">check your email and password</div>
         )}
         <input onChange={this.handleChange} name="email" placeholder="email" />
+        <br />
         <input
           onChange={this.handleChange}
           name="password"
           placeholder="password"
         />
+        <br />
         <button onClick={this.loginPost} name="register">
           Login
         </button>
-        <Link to="/">Click here for registration!</Link>
+        <br />
+
+        <Link className="link_text" to="/">
+          or Register
+        </Link>
       </div>
     );
   }

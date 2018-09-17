@@ -15,6 +15,9 @@ export function getSocket(store) {
     socket.on("onlineUsers", data => {
       // dispatches an action
     });
+    socket.on("chatMessage", message => {
+      store.dispatch(chatMessage(message));
+    });
   }
   return socket;
 }

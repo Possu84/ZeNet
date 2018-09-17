@@ -84,21 +84,15 @@ body {
   background-color: silver;
 }
 
-#small_text {
-  font-size: 50px;
-  font-family: "Libre Barcode 128 Text", cursive;
-}
-
 #header_component {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 80px;
-  background-color: rgba(0, 0, 0, 0.9);
-  -webkit-box-shadow: 0px -10px 39px 13px rgba(128, 128, 128, 1);
-  -moz-box-shadow: 0px -10px 39px 13px rgba(128, 128, 128, 1);
-  box-shadow: 0px -10px 39px 13px rgba(128, 128, 128, 1);
+  background-color: rgba(0, 0, 0, 0.5);
+
+  box-shadow: 0px -10px 39px 13px rgba(0, 0, 0, 0.5);
 }
 
 #header_logo {
@@ -114,6 +108,9 @@ body {
 
 #profilepic {
   position: absolute;
+  align-content: center;
+  right: 49%;
+  left: 49%;
   width: 50px;
   height: 50px;
   overflow: hidden;
@@ -123,17 +120,64 @@ body {
 
   border-radius: 200px 200px 200px 0px;
 
-  border: 0px solid #000000;
+  border: 3px solid white;
 }
 
 #profile_container {
+  position: absolute;
+  align-content: center;
+  right: 57%;
+  left: 42%;
+
+  top: 100px;
+  border-radius: 200px 200px 0px 0px;
+  width: 200px;
+  height: 250px;
+  border: 0px solid #000000;
+  background-color: silver;
+  border: 3px solid white;
+}
+
+#picInProfile {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  object-fit: cover;
+  margin-top: 35px;
+  margin-left: 45px;
+  border-radius: 50px;
+  border: 3px solid white;
+}
+
+#small_text {
+  top: 5px;
+  font-size: 15px;
+  font-family: "Roboto", cursive;
+
+  margin-left: 25px;
+}
+
+#biger_text {
+  margin-top: 5px;
+  margin-left: 25px;
+  font-size: 20px;
+  font-family: "Roboto", cursive;
+}
+
+#profile_container_friends {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
   top: 100px;
   left: 20px;
   position: absolute;
-  border-radius: 200px 200px 200px 0px;
-
+  width: 200px;
+  height: 200px;
   border: 0px solid #000000;
   background-color: silver;
+  border-radius: 10px 100px 0px 0px;
+  border: 3px solid white;
 }
 
 #friendlist {
@@ -177,16 +221,6 @@ body {
   z-index: 3;
 }
 
-#picInProfile {
-  width: 100px;
-  height: 100px;
-  overflow: hidden;
-  object-fit: cover;
-  margin-top: 20px;
-  margin-left: 20px;
-  border-radius: 5px;
-}
-
 .smallLogo {
   color: white;
   margin-top: 30%;
@@ -195,119 +229,84 @@ body {
 }
 
 #login_block {
+  border-top: 10px;
+  width: 250px;
+  height: 250px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: rgba(54, 25, 25, 0.1);
-  border-radius: 5px;
+  background-color: white;
+  animation: fade-in-bck 2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+
+  border-radius: 20px 20px 200px 200px;
+
+  -webkit-box-shadow: 0px 10px 0px 0px rgba(189, 189, 189, 1);
+  -moz-box-shadow: 0px 10px 0px 0px rgba(189, 189, 189, 1);
+  box-shadow: -2px 26px 63px -18px rgba(0, 0, 0, 1);
 }
 
-#reg_block {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-color: rgba(54, 25, 25, 0.1);
-  border-radius: 5px;
-  width: inherit;
+#input_fields {
+  border-radius: 0px 200px 200px 200px;
+  -moz-border-radius: 0px 200px 200px 200px;
+  -webkit-border-radius: 0px 200px 200px 200px;
+}
+
+.link_text {
+  font-family: "Roboto", cursive;
 }
 
 #logo_text {
+  color: white;
+  margin-top: 40%;
+  font-size: 250px;
+  font-family: "Libre Barcode 128 Text", cursive;
+  -webkit-animation: text-pop-up-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+  animation: text-pop-up-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+#reg_block {
+  border-top: 10px;
+  width: 250px;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  animation: fade-in-bck 2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+
+  border-radius: 20px 20px 200px 200px;
+
+  -webkit-box-shadow: 0px 10px 0px 0px rgba(189, 189, 189, 1);
+  -moz-box-shadow: 0px 10px 0px 0px rgba(189, 189, 189, 1);
+  box-shadow: -2px 26px 63px -18px rgba(0, 0, 0, 1);
+}
+
+/* #logo_text {
+  color: white;
   margin-top: 40%;
   font-size: 300px;
   font-family: "Libre Barcode 128 Text", cursive;
-}
+} */
 
 #background {
-  background-color: red;
-  position: absolute;
+  position: fixed;
   top: 0;
-  left: 0;
   right: 0;
+  left: 0;
   bottom: 0;
-  z-index: -5;
-  background-color: silver;
-  background-image: radial-gradient(
-      circle at 100% 150%,
-      silver 24%,
-      white 25%,
-      white 28%,
-      silver 29%,
-      silver 36%,
-      white 36%,
-      white 40%,
-      transparent 40%,
-      transparent
-    ),
-    radial-gradient(
-      circle at 0 150%,
-      silver 24%,
-      white 25%,
-      white 28%,
-      silver 29%,
-      silver 36%,
-      white 36%,
-      white 40%,
-      transparent 40%,
-      transparent
-    ),
-    radial-gradient(
-      circle at 50% 100%,
-      white 10%,
-      silver 11%,
-      silver 23%,
-      white 24%,
-      white 30%,
-      silver 31%,
-      silver 43%,
-      white 44%,
-      white 50%,
-      silver 51%,
-      silver 63%,
-      white 64%,
-      white 71%,
-      transparent 71%,
-      transparent
-    ),
-    radial-gradient(
-      circle at 100% 50%,
-      white 5%,
-      silver 6%,
-      silver 15%,
-      white 16%,
-      white 20%,
-      silver 21%,
-      silver 30%,
-      white 31%,
-      white 35%,
-      silver 36%,
-      silver 45%,
-      white 46%,
-      white 49%,
-      transparent 50%,
-      transparent
-    ),
-    radial-gradient(
-      circle at 0 50%,
-      white 5%,
-      silver 6%,
-      silver 15%,
-      white 16%,
-      white 20%,
-      silver 21%,
-      silver 30%,
-      white 31%,
-      white 35%,
-      silver 36%,
-      silver 45%,
-      white 46%,
-      white 49%,
-      transparent 50%,
-      transparent
-    );
-  background-size: 100px 50px;
+
+  z-index: -1;
+  color: #fff;
+  background: linear-gradient(1deg, #844d8d, #ad53ba, #3426b2, #cfcfd0);
+  background-size: 400% 400%;
+  -webkit-animation: Gradient 15s ease infinite;
+  -moz-animation: Gradient 15s ease infinite;
+  animation: Gradient 15s ease infinite;
 }
+
 /* font-family: 'Muli', sans-serif;
 font-family: 'Pacifico', cursive;
 font-family: 'Shadows Into Light', cursive;

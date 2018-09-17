@@ -24,9 +24,9 @@ class FriendsAndFrenemies extends React.Component {
           {this.props.friends.map(friends => {
             return (
               <div id="profile_container_friends">
-                <img id="picInProfile" src={friends.picurl} /> <br />
-                {friends.first_name} <br />
+                {friends.first_name}
                 {friends.last_name}
+                <img id="picInProfile" src={friends.picurl} />
                 <button
                   onClick={() => {
                     this.props.dispatch(unfriend(friends.id));
