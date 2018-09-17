@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "./axios";
+import Background from "./background";
 
 import FriendshipButton from "./friendshipbutton";
 
@@ -19,27 +20,29 @@ class OtherProfile extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`/other-user/${this.props.match.params.userId}`).then(resp => {
+    axios.get(`/other-user/${this.props.match.params.userId}`).then(results => {
       console.log("axios in other :", this.props.match.params.userId);
       this.setState({
-        id: resp.data.id,
-        name: resp.data.first_name,
-        lastName: resp.data.last_name,
-        email: resp.data.email,
-        picurl: resp.data.picurl,
-        bio: resp.data.bio
+        id: results.data.id,
+        name: results.data.first_name,
+        lastName: results.data.last_name,
+        email: results.data.email,
+        picurl: results.data.picurl,
+        bio: results.data.bio
       });
     });
   }
   render() {
     return (
       <div id="profile_container">
+        <Background />
         <img id="picInProfile" src={this.state.picurl} />
         <div>
           <h1 id="small_text">
-            {this.state.lastName} {this.state.name} {this.state.bio}
+            {this.state.lastName} {this.state.name}
           </h1>
-
+          <br />
+          <h1 id="small_text">{this.state.bio}</h1>
           <FriendshipButton id={this.props.match.params.userId} />
         </div>
       </div>

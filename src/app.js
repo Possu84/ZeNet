@@ -22,6 +22,8 @@ import Header from "./header";
 
 import Profile from "./profile";
 
+import OnlineUsers from "./onlineusers";
+
 import FriendsAndFrenemies from "./friends";
 
 import OtherProfile from "./otherprofile";
@@ -145,6 +147,7 @@ class App extends React.Component {
             />
             <Route exact path="/user/:userId" component={OtherProfile} />
             <Route exact path="/friends" component={FriendsAndFrenemies} />
+            <Route exact path="/online_users" component={OnlineUsers} />
           </div>
         </BrowserRouter>
       </div>

@@ -96,17 +96,18 @@ body {
 }
 
 #header_logo {
+  animation: slide-in-top 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   color: white;
   height: 60px;
-  position: absolute;
-  align-content: center;
-  right: 49%;
-  left: 49%;
+  margin: 0 auto;
+  width: 100px;
+
   font-family: "Libre Barcode 128 Text", cursive;
   font-size: 80px;
 }
 
 #profilepic {
+  animation: slide-in-top 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   position: absolute;
   align-content: center;
   right: 49%;
@@ -124,18 +125,15 @@ body {
 }
 
 #profile_container {
-  position: absolute;
-  align-content: center;
-  right: 57%;
-  left: 42%;
+  margin: 100px 0 0 0;
 
-  top: 100px;
   border-radius: 200px 200px 0px 0px;
   width: 200px;
-  height: 250px;
-  border: 0px solid #000000;
-  background-color: silver;
-  border: 3px solid white;
+  height: 350px;
+
+  background-color: white;
+  /* border: 3px solid silver; */
+  box-shadow: 0px -31px 114px -33px rgba(0, 0, 0, 0.75);
 }
 
 #picInProfile {
@@ -145,11 +143,17 @@ body {
   object-fit: cover;
   margin-top: 35px;
   margin-left: 45px;
-  border-radius: 50px;
+  border-radius: 50px 50px 50px 0px;
   border: 3px solid white;
 }
 
+#profile_info {
+  margin-bottom: 100px;
+}
+
 #small_text {
+  width: 150px;
+  overflow-y: scroll;
   top: 5px;
   font-size: 15px;
   font-family: "Roboto", cursive;
@@ -164,19 +168,24 @@ body {
   font-family: "Roboto", cursive;
 }
 
-#profile_container_friends {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+#text_area {
+  margin-left: 25px;
+  width: 150px;
+  height: 50px;
+}
 
-  top: 100px;
-  left: 20px;
+#profile_container_friends {
   position: absolute;
+  align-content: center;
+  right: 57%;
+  left: 42%;
+  margin-bottom: auto;
+  top: 100px;
+  border-radius: 200px 200px 0px 0px;
   width: 200px;
-  height: 200px;
+
   border: 0px solid #000000;
   background-color: silver;
-  border-radius: 10px 100px 0px 0px;
   border: 3px solid white;
 }
 
@@ -216,7 +225,7 @@ body {
   bottom: 20%;
   left: 20%;
   right: 20%;
-  background-color: rgba(0, 0, 0, 1);
+  background-color: rgba(0, 0, 0, 0.8);
 
   z-index: 3;
 }
