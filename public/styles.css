@@ -61,26 +61,37 @@ body {
   flex-direction: column;
 }
 
+.link_text {
+  font-family: "Roboto", cursive;
+}
+
 #friends_container {
-  top: 20%;
-  left: 5%;
-  position: absolute;
+  margin: 0 auto;
   display: flex;
-
+  flex-wrap: wrap;
+  position: absolute;
   flex-direction: row;
+  left: 20px;
+  top: 100px;
+}
 
-  background-color: silver;
+#friend_profile_container {
+  border-radius: 200px 200px 200px 20px;
+  width: 200px;
+  height: 250px;
+  padding-right: 30px;
+  margin-right: 30px;
+  background-color: white;
+  /* border: 3px solid silver; */
+  box-shadow: -10px 8px 229px -37px rgba(0, 0, 0, 0.75);
 }
 
 #frenemies_container {
   bottom: 20%;
   left: 5%;
-
   position: absolute;
   display: flex;
-
   flex-direction: row;
-
   background-color: silver;
 }
 
@@ -237,6 +248,13 @@ body {
   font-family: "Libre Barcode 128 Text", cursive;
 }
 
+.friendship_button {
+  margin-left: 25px;
+
+  width: 150px;
+  border-radius: 50px 50px 50px 0px;
+}
+
 #login_block {
   border-top: 10px;
   width: 250px;
@@ -259,10 +277,6 @@ body {
   border-radius: 0px 200px 200px 200px;
   -moz-border-radius: 0px 200px 200px 200px;
   -webkit-border-radius: 0px 200px 200px 200px;
-}
-
-.link_text {
-  font-family: "Roboto", cursive;
 }
 
 #logo_text {
@@ -293,6 +307,9 @@ body {
   box-shadow: -2px 26px 63px -18px rgba(0, 0, 0, 1);
 }
 
+#onlineUsers_container {
+  margin-top: 100px;
+}
 /* #logo_text {
   color: white;
   margin-top: 40%;

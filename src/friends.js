@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getFriendsAndWanabes, acceptFriendRequest, unfriend } from "./actions";
+import Background from "./background";
 
 class FriendsAndFrenemies extends React.Component {
   componentDidMount() {
@@ -19,13 +20,17 @@ class FriendsAndFrenemies extends React.Component {
 
     return (
       <div>
+        <Background />
         <div id="friends_container">
-          <h1>Friends</h1>
           {this.props.friends.map(friends => {
             return (
-              <div id="profile_container_friends">
-                {friends.first_name}
-                {friends.last_name}
+              <div id="friend_profile_container">
+                <h1 id="biger_text">Friend</h1>
+                <h1 id="biger_text">
+                  {friends.first_name}
+                  {friends.last_name}
+                </h1>
+
                 <img id="picInProfile" src={friends.picurl} />
                 <button
                   onClick={() => {

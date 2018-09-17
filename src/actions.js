@@ -30,3 +30,11 @@ export function unfriend(id) {
     };
   });
 }
+
+export function onlineUsers(users) {
+  console.log("loggin users in action", users);
+  return {
+    type: "GET_ONLINE_USERS",
+    users: users
+  };
+}

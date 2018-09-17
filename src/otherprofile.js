@@ -37,12 +37,14 @@ class OtherProfile extends React.Component {
       <div id="profile_container">
         <Background />
         <img id="picInProfile" src={this.state.picurl} />
-        <div>
-          <h1 id="small_text">
+        <br />
+        <div id="profile_info">
+          <h1 id="biger_text">
             {this.state.lastName} {this.state.name}
           </h1>
           <br />
           <h1 id="small_text">{this.state.bio}</h1>
+          <br />
           <FriendshipButton id={this.props.match.params.userId} />
         </div>
       </div>

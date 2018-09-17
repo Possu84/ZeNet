@@ -304,8 +304,9 @@ io.on("connection", function(socket) {
 
   let arrayOfUserIds = Object.values(onlineUsers);
 
+  /// here we need the array of users;
+
   database.getUsersByIds(arrayOfUserIds).then(results => {
-    console.log("getUsersByIds result in index:", result);
     // result = array of objects that contains
     // users first name, last name, email, etc
     // emit to client

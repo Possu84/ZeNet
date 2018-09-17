@@ -120,6 +120,11 @@ export default class FriendshipButton extends React.Component {
 
   render() {
     // console.log("loggin in the render", this.state.status, this.buttonText());
-    return <button onClick={this.handleRequest}> {this.buttonText()} </button>;
+    return (
+      <button className="friendship_button" onClick={this.handleRequest}>
+        {" "}
+        {this.buttonText()}{" "}
+      </button>
+    );
   }
 }

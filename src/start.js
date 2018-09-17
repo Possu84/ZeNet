@@ -33,13 +33,12 @@ const store = createStore(
   reducer,
   composeWithDevTools(applyMiddleware(reduxPromise))
 );
-
-const ReAppWrap = (getSocket(store),
-(
+getSocket(store);
+const ReAppWrap = (
   <Provider store={store}>
     <App />
   </Provider>
-));
+);
 
 let elem;
 
