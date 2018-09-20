@@ -20,6 +20,8 @@ import Background from "./background";
 
 import Header from "./header";
 
+import Chat from "./chat";
+
 import Profile from "./profile";
 
 import OnlineUsers from "./onlineusers";
@@ -29,6 +31,8 @@ import FriendsAndFrenemies from "./friends";
 import OtherProfile from "./otherprofile";
 
 import { BrowserRouter, Route } from "react-router-dom";
+
+import Notification from "./notification";
 
 //////////////////////////////////////////
 
@@ -56,9 +60,11 @@ class App extends React.Component {
 
     this.setBio = this.setBio.bind(this);
   } /// end of constructor
+
   handleChange(e) {
     this[e.target.name] = e.target.value;
   }
+
   toggleBio() {
     this.setState({
       showBio: !this.state.showBio
@@ -78,7 +84,7 @@ class App extends React.Component {
         name: data.first_name,
         last_name: data.last_name,
         email: data.email,
-        picurl: data.picurl,
+        picurl: data.picurl || this.state.picurl, /// or is beacuse i am overwriting the set state with this
         bio: data.bio,
         showBio: false
       });
@@ -124,6 +130,7 @@ class App extends React.Component {
     return (
       <div id="app_main">
         <Header />
+        <Notification />
         <ProfilePic picurl={this.state.picurl} toggleModal={this.toggleModal} />
         {this.state.modal && <Modal upLoadPic={this.upLoadPic} />}{" "}
         {/* this is conditional rendering */}
@@ -148,6 +155,7 @@ class App extends React.Component {
             <Route exact path="/user/:userId" component={OtherProfile} />
             <Route exact path="/friends" component={FriendsAndFrenemies} />
             <Route exact path="/online_users" component={OnlineUsers} />
+            <Route exact path="/chat" component={Chat} />
           </div>
         </BrowserRouter>
       </div>

@@ -9,8 +9,9 @@ function Modal(props) {
     <div id="modal">
       <h1 id="small_logo"> ZEN </h1>
       <h1 />
-      <p> DO you WaNt to upload some pics ;) </p>
-      <p> we eNjoy iT gReatLy </p>
+      <br />
+      <p id="small_text"> Upload new profile picture </p>
+      <br />
 
       <input
         id="myInput"

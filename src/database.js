@@ -23,7 +23,10 @@ module.exports.login = function login(email) {
 };
 
 module.exports.getUser = function getUser(id) {
-  return db.query(` SELECT * FROM users WHERE id = $1 `, [id]);
+  return db.query(
+    ` SELECT first_name, id, last_name, email, picUrl, bio FROM users WHERE id = $1 `,
+    [id]
+  );
 };
 
 module.exports.updateImage = function updateImage(picUrl, id) {
@@ -131,4 +134,45 @@ module.exports.getFriendsAndWanabes = function getFriendsAndWanabes(id) {
 module.exports.getUsersByIds = function getUsersByIds(arrayOfIds) {
   const query = `SELECT id, first_name, last_name, picurl FROM users WHERE id = ANY($1)`;
   return db.query(query, [arrayOfIds]);
+};
+
+module.exports.newMessage = (userId, msg) => {
+  return db.query(
+    `
+        INSERT INTO messages (sender_id, message)
+        VALUES ($1, $2)
+        `,
+    [userId, msg]
+  );
+};
+
+module.exports.getChatMessages = function getChatMessages() {
+  return db.query(
+    `
+        SELECT
+        messages.id as msg_id,
+        messages.message as msg_text,
+        messages.sender_id as msg_sender_id,
+        messages.created_at as msg_time,
+        users.first_name as msg_sender_first,
+        users.last_name as msg_sender_last,
+        users.picUrl as msg_sender_img
+        FROM messages
+        JOIN users
+        ON messages.sender_id = users.id
+        ORDER BY messages.id DESC LIMIT 10
+        `
+  );
+};
+
+module.exports.setAndGetLastMessage = function setAndGetLastMessage(userId, msg) {
+
+
+    return db.query(
+        `
+        INSERT INTO messages (sender_id, message)
+        VALUES ($1, $2) RETURNING *
+        `,
+        [userId, msg]
+    );
 };

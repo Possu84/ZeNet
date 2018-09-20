@@ -10,7 +10,7 @@ class FriendsAndFrenemies extends React.Component {
   }
 
   render() {
-    ///// this makes sure that the render does not do nothing before return data is back and defind
+    ///// this makes sure that the render does not do nothing before return data is back and defined
     if (!this.props.friends) {
       return null;
     }
@@ -21,45 +21,36 @@ class FriendsAndFrenemies extends React.Component {
     return (
       <div>
         <Background />
-        <div id="friends_container">
+        <div id="onlineUsers_container">
           {this.props.friends.map(friends => {
             return (
               <div id="friend_profile_container">
-                <h1 id="biger_text">Friend</h1>
-                <h1 id="biger_text">
-                  {friends.first_name}
-                  {friends.last_name}
-                </h1>
-
-                <img id="picInProfile" src={friends.picurl} />
-                <button
+                <img
                   onClick={() => {
                     this.props.dispatch(unfriend(friends.id));
                   }}
-                >
-                  {" "}
-                  terminate{" "}
-                </button>
+                  id="picInProfile_friends"
+                  src={friends.picurl}
+                />
+                <p id="friends_page_text"> remove </p>
               </div>
             );
           })}
         </div>
+
         <div id="frenemies_container">
-          <h1>Frenemies</h1>
           {this.props.wanabees.map(wanabees => {
             return (
               <div id="profile_container_wanabees">
-                <img id="picInProfile" src={wanabees.picurl} /> <br />
-                {wanabees.first_name} <br />
-                {wanabees.last_name}
-                <button
+                <img
                   onClick={() => {
                     this.props.dispatch(acceptFriendRequest(wanabees.id));
                   }}
-                >
-                  {" "}
-                  Accept friend reguest{" "}
-                </button>
+                  id="picInProfile_friends"
+                  src={wanabees.picurl}
+                />{" "}
+                <p id="friends_page_text"> accept </p>
+                <br />
               </div>
             );
           })}
@@ -84,8 +75,36 @@ const mapStateToProps = function(state) {
 
 export default connect(mapStateToProps)(FriendsAndFrenemies);
 
+// <button
+//   onClick={() => {
+//     this.props.dispatch(acceptFriendRequest(wanabees.id));
+//   }}
+// >
+//   {" "}
+//   Accept{" "}
+// </button>
+
+// <button
+//   onClick={() => {
+//     this.props.dispatch(unfriend(friends.id));
+//   }}
+// >
+//   {" "}
+//   terminate{" "}
+// </button>
+
 // <nav>
 //   <Link to="/hot">See who&apos;s hot</Link>
 //   <Link to="/not">See who&apos;s not</Link>
 // </nav>
+
+// {wanabees.first_name} <br />
+// {wanabees.last_name}
 //
+
+//
+// <h1 id="biger_text">Friend</h1>
+// <h1 id="biger_text">
+//   {friends.first_name}
+//   {friends.last_name}
+// </h1>

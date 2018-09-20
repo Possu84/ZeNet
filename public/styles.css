@@ -1,3 +1,5 @@
+/* GENERAL THINGS */
+
 * {
   margin: 0;
 }
@@ -8,10 +10,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-}
-
-.welcome {
+  min-width: 600px;
 }
 
 .logo {
@@ -65,155 +64,25 @@ body {
   font-family: "Roboto", cursive;
 }
 
-#friends_container {
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  position: absolute;
-  flex-direction: row;
-  left: 20px;
-  top: 100px;
-}
-
-#friend_profile_container {
-  border-radius: 200px 200px 200px 20px;
-  width: 200px;
-  height: 250px;
-  padding-right: 30px;
-  margin-right: 30px;
-  background-color: white;
-  /* border: 3px solid silver; */
-  box-shadow: -10px 8px 229px -37px rgba(0, 0, 0, 0.75);
-}
-
-#frenemies_container {
-  bottom: 20%;
-  left: 5%;
-  position: absolute;
-  display: flex;
-  flex-direction: row;
-  background-color: silver;
-}
-
-#header_component {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 80px;
-  background-color: rgba(0, 0, 0, 0.5);
-
-  box-shadow: 0px -10px 39px 13px rgba(0, 0, 0, 0.5);
-}
-
-#header_logo {
-  animation: slide-in-top 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+.smallLogo {
   color: white;
-  height: 60px;
-  margin: 0 auto;
-  width: 100px;
-
+  margin-top: 30%;
+  font-size: 50px;
   font-family: "Libre Barcode 128 Text", cursive;
-  font-size: 80px;
 }
 
-#profilepic {
-  animation: slide-in-top 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  position: absolute;
-  align-content: center;
-  right: 49%;
-  left: 49%;
-  width: 50px;
+.friendship_button {
+  margin-left: 35%;
   height: 50px;
-  overflow: hidden;
-  object-fit: cover;
-  top: 10px;
-  left: 10px;
-
-  border-radius: 200px 200px 200px 0px;
-
-  border: 3px solid white;
-}
-
-#profile_container {
-  margin: 100px 0 0 0;
-
-  border-radius: 200px 200px 0px 0px;
-  width: 200px;
-  height: 350px;
-
-  background-color: white;
-  /* border: 3px solid silver; */
-  box-shadow: 0px -31px 114px -33px rgba(0, 0, 0, 0.75);
-}
-
-#picInProfile {
-  width: 100px;
-  height: 100px;
-  overflow: hidden;
-  object-fit: cover;
-  margin-top: 35px;
-  margin-left: 45px;
+  font-family: "Roboto", cursive;
+  width: 60px;
   border-radius: 50px 50px 50px 0px;
-  border: 3px solid white;
 }
 
-#profile_info {
-  margin-bottom: 100px;
-}
-
-#small_text {
-  width: 150px;
-  overflow-y: scroll;
-  top: 5px;
-  font-size: 15px;
-  font-family: "Roboto", cursive;
-
-  margin-left: 25px;
-}
-
-#biger_text {
-  margin-top: 5px;
-  margin-left: 25px;
-  font-size: 20px;
-  font-family: "Roboto", cursive;
-}
-
-#text_area {
-  margin-left: 25px;
-  width: 150px;
-  height: 50px;
-}
-
-#profile_container_friends {
+#c {
+  display: flex;
   position: absolute;
-  align-content: center;
-  right: 57%;
-  left: 42%;
-  margin-bottom: auto;
-  top: 100px;
-  border-radius: 200px 200px 0px 0px;
-  width: 200px;
-
-  border: 0px solid #000000;
-  background-color: silver;
-  border: 3px solid white;
-}
-
-#friendlist {
-  top: 100px;
-  left: 20px;
-  position: absolute;
-
-  background-color: silver;
-}
-#uploadButton:hover {
-  cursor: pointer;
-  top: 10px;
-  background-color: none;
-  color: grey;
-  font-family: "Libre Barcode 128 Text", cursive;
-  font-size: 45px;
+  flex-direction: column;
 }
 
 #uploadButton {
@@ -227,32 +96,28 @@ body {
   color: white;
   font-family: "Libre Barcode 128 Text", cursive;
   font-size: 45px;
-  position: fixed;
+
+  position: absolute;
+
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  top: 20%;
-  bottom: 20%;
-  left: 20%;
-  right: 20%;
-  background-color: rgba(0, 0, 0, 0.8);
 
+  position: absolute;
+  /* this is how you center to the tru center */
+  top: 35%;
+  left: 50%;
+  margin-top: -200px;
+  margin-left: -200px;
+
+  height: 400px;
+  width: 400px;
+  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: 50% 50% 50% 5%;
+  border: 3px solid white;
   z-index: 3;
-}
-
-.smallLogo {
-  color: white;
-  margin-top: 30%;
-  font-size: 50px;
-  font-family: "Libre Barcode 128 Text", cursive;
-}
-
-.friendship_button {
-  margin-left: 25px;
-
-  width: 150px;
-  border-radius: 50px 50px 50px 0px;
+  box-shadow: -2px 26px 63px -18px rgba(0, 0, 0, 1);
 }
 
 #login_block {
@@ -307,15 +172,377 @@ body {
   box-shadow: -2px 26px 63px -18px rgba(0, 0, 0, 1);
 }
 
-#onlineUsers_container {
-  margin-top: 100px;
+#myInput {
 }
-/* #logo_text {
+
+#friends_container {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  flex-direction: row;
+  left: 20px;
+  top: 100px;
+}
+
+#friend_profile_container {
+  border-radius: 50% 50% 50% 0%;
+  width: 100px;
+  height: 100px;
+  padding-right: 30px;
+  margin-right: 30px;
+  padding-bottom: 30px;
+  background-color: white;
+  box-shadow: 0px 10px 30px 5px rgba(0, 0, 0, 0.3);
+  -webkit-animation: fade-in-fwd 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+    both;
+  animation: fade-in-fwd 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+}
+
+#picInProfile_friends {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  object-fit: cover;
+  margin-top: 10px;
+  margin-left: 10px;
+  border-radius: 50px 50px 50px 0px;
+  border: 3px solid white;
+}
+
+#profile_container_wanabees {
+  border-radius: 50% 50% 50% 0%;
+  width: 100px;
+  height: 100px;
+  padding-right: 30px;
+  margin-right: 30px;
+  padding-bottom: 30px;
+  background-color: white;
+  box-shadow: 0px 10px 30px 5px rgba(0, 0, 0, 0.3);
+  -webkit-animation: fade-in-fwd 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+    both;
+  animation: fade-in-fwd 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+}
+
+#friends_page_text {
+  position: absolute;
+  left: 10px;
+  bottom: 2px;
+  font-family: "Roboto", cursive;
+  font-size: 12px;
+}
+
+#picInProfile_online {
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  object-fit: cover;
+  margin-top: 22%;
+  margin-left: 22%;
+  border-radius: 50% 50% 50% 0px;
+  border: 3px solid white;
+}
+
+#friends_online_text {
   color: white;
-  margin-top: 40%;
-  font-size: 300px;
-  font-family: "Libre Barcode 128 Text", cursive;
+
+  width: 100px;
+
+  top: 120px;
+  font-size: 15px;
+  font-family: "Roboto", cursive;
+  -webkit-animation: fade-in-fwd 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+    both;
+  animation: fade-in-fwd 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+}
+
+#onlineUsers_container {
+  margin-top: 150px;
+  display: flex;
+
+  flex-direction: row;
+}
+#online_small_text {
+  margin: 0 auto;
+  top: 5px;
+  font-size: 12px;
+  font-family: "Roboto", cursive;
+
+  margin-left: 25px;
+}
+
+#frenemies_container {
+  bottom: 20%;
+
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+}
+
+#header_component {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background-color: rgba(0, 0, 0, 0.5);
+  min-width: 600px;
+
+  box-shadow: 0px -10px 39px 13px rgba(0, 0, 0, 0.5);
+}
+
+/* #header_logo,
+#chat_text,
+#online_text,
+#friends_text {
+
+
+
 } */
+
+#header_logo {
+  animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  color: white;
+  height: 60px;
+  margin: 0 auto;
+  width: 100px;
+
+  font-family: "Libre Barcode 128 Text", cursive;
+  font-size: 80px;
+}
+
+#logout_text {
+  animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  position: absolute;
+  right: 10px;
+  top: 30px;
+  color: white;
+  font-size: 15px;
+  font-family: "Roboto", cursive;
+}
+
+#chat_text {
+  animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  position: absolute;
+  right: 70px;
+  top: 30px;
+  color: white;
+  font-size: 15px;
+  font-family: "Roboto", cursive;
+}
+
+#online_text {
+  animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  position: absolute;
+  right: 120px;
+  top: 30px;
+  color: white;
+  font-size: 15px;
+  font-family: "Roboto", cursive;
+}
+
+#friends_text {
+  animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  position: absolute;
+  right: 180px;
+  top: 30px;
+  color: white;
+  font-size: 15px;
+  font-family: "Roboto", cursive;
+}
+
+#profilepic {
+  animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  position: absolute;
+  align-content: center;
+  right: 49%;
+  left: 49%;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  object-fit: cover;
+  top: 10px;
+  left: 10px;
+
+  border-radius: 200px 200px 200px 0px;
+
+  border: 3px solid white;
+}
+
+#profile_container {
+  margin: 100px 0 0 0;
+
+  border-radius: 200px 200px 200px 0px;
+  width: 200px;
+  height: 350px;
+
+  background-color: white;
+  /* border: 3px solid silver; */
+  box-shadow: 0px -31px 114px -33px rgba(0, 0, 0, 0.75);
+}
+
+#picInProfile {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  object-fit: cover;
+  margin-top: 35px;
+  margin-left: 45px;
+  border-radius: 50px 50px 50px 0px;
+  border: 3px solid white;
+  box-shadow: 0px 0px 82px -17px rgba(0, 0, 0, 0.25);
+}
+
+#profile_info {
+  margin-bottom: 100px;
+}
+
+#small_text {
+  width: 150px;
+  overflow-y: scroll;
+  top: 5px;
+  font-size: 15px;
+  font-family: "Roboto", cursive;
+
+  margin-left: 25px;
+}
+
+#biger_text {
+  margin-top: 5px;
+  margin-left: 25px;
+  font-size: 20px;
+  font-family: "Roboto", cursive;
+}
+
+#text_area {
+  margin-left: 25px;
+  width: 150px;
+  height: 50px;
+}
+
+#notification_modal {
+  color: white;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  /* this is how you center to the tru center */
+  top: 35%;
+  left: 50%;
+  margin-top: -200px;
+  margin-left: -200px;
+  height: 400px;
+  width: 400px;
+  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: 50% 50% 50% 5%;
+  border: 3px solid white;
+  z-index: 3;
+  box-shadow: -2px 26px 63px -18px rgba(0, 0, 0, 1);
+}
+
+#the-x {
+  cursor: pointer;
+  position: absolute;
+  color: white;
+  font-family: "Roboto", bold;
+  bottom: 45px;
+}
+
+#profile_container_friends {
+  position: absolute;
+  align-content: center;
+  right: 57%;
+  left: 42%;
+  margin-bottom: auto;
+  top: 100px;
+  border-radius: 200px 200px 0px 0px;
+  width: 200px;
+
+  border: 0px solid #000000;
+  background-color: silver;
+  border: 3px solid white;
+  box-shadow: 0px -31px 114px -33px rgba(0, 0, 0, 0.75);
+}
+
+#friendlist {
+  top: 100px;
+  left: 20px;
+  position: absolute;
+
+  background-color: silver;
+}
+
+/* CHAT STUFF */
+
+#chat_wrapper {
+  background-color: white;
+  position: absolute;
+  left: 30%;
+  border-radius: 25px 25px 25px 0px;
+  top: 100px;
+  width: 400px;
+  height: 85%;
+  box-shadow: 0px -31px 114px -33px rgba(0, 0, 0, 0.75);
+}
+
+#chat_header {
+  left: 100px;
+  position: absolute;
+  top: 5px;
+  font-family: "Libre Barcode 128 Text", cursive;
+  font-size: 50px;
+}
+
+#chat_input {
+  font-family: "Roboto", cursive;
+}
+
+#chat_message_area {
+  top: 60px;
+  left: 10%;
+  height: 70%;
+  width: 80%;
+  position: absolute;
+  overflow: scroll;
+  border-radius: 20px 20px 20px 5px;
+  border: 1px solid black;
+}
+
+#chat_messages_container {
+  left: 5px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: row;
+  font-family: "Roboto", cursive;
+}
+
+.chat-avatar-box {
+  height: 30px;
+  width: 30px;
+  overflow: hidden;
+  border-radius: 50% 0% 50% 50%;
+}
+
+.chat-message-avatar {
+  left: 5px;
+  height: 25px;
+  width: 25px;
+  overflow: hidden;
+  border-radius: 50% 0% 50% 50%;
+}
+#chat_textarea {
+  font-family: "Roboto", cursive;
+  font-size: 15px;
+  position: absolute;
+  bottom: 10%;
+  width: 80%;
+  left: 10%;
+  overflow: scroll;
+  border-radius: 20px 20px 20px 5px;
+}
 
 #background {
   position: fixed;

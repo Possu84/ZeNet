@@ -14,6 +14,8 @@ const bcrypt = require("./bcrypt.js");
 
 const cookieSession = require("cookie-session");
 
+const moment = require("moment");
+
 const csurf = require("csurf");
 
 app.use(require("cookie-parser")());
@@ -224,16 +226,28 @@ app.post("/make-new-friend/", (req, res) => {
     .friendRequest(req.body.id, req.session.userId)
     .then(results => {
       res.json(results.rows[0]);
+      for (let socketId in onlineUsers) {
+          console.log("here", req.body.id );
+          if (onlineUsers[socketId] == req.body.id) {
+              console.log("loggin in da if");
+              io.sockets.sockets[socketId].emit(
+                  "friendRequestNotice",
+                  results.rows[0]
+              );
+              console.log("Friend req emission works!");
+          }
+      }
     })
     .catch(err => {
       console.log("logging the error in post friendship route", err);
     });
 });
 
+
 /////////////////cancel- delete friendrequest///////////////////////
 
 app.post("/cancel-delete-request", (req, res) => {
-  console.log("fiering the route");
+
   database
     .cancelDeleteRequest(req.body.id, req.session.userId)
     .then(results => {
@@ -247,7 +261,7 @@ app.post("/cancel-delete-request", (req, res) => {
 ////////////////confirm friend reguest/////////////
 
 app.post("/confirm-friend-request", (req, res) => {
-  console.log("confirming friendnndndndndnn");
+
   database
     .confirmFriendRequest(req.body.id, req.session.userId)
     .then(result => {
@@ -261,7 +275,7 @@ app.post("/confirm-friend-request", (req, res) => {
 /////////////////// get friend and friendabies/////////////
 
 app.get("/get-friends-and-wanabes", (req, res) => {
-  console.log("get friends and wanabees post", req.session.userId);
+
   database
     .getFriendsAndWanabes(req.session.userId)
     .then(result => {
@@ -272,6 +286,29 @@ app.get("/get-friends-and-wanabes", (req, res) => {
     });
 });
 
+//////////////GET MESSAGES///////////////
+
+app.get("/get-messages", (req, res) => {
+
+  database
+    .getChatMessages()
+    .then(result => {
+
+      res.json(result.rows);
+    })
+    .catch(err => {
+
+    });
+});
+
+
+
+/////////////LOGOUT/////////////
+
+app.get("/logout", (req, res) => {
+  req.session = null;
+  res.redirect("/");
+});
 ///////////DONT TOUCH/////MUST BE LAST!!!!////////
 ////// needs to check if cookie sessions is present//////////
 app.get("*", (req, res) => {
@@ -292,7 +329,13 @@ let onlineUsers = {};
 
 io.on("connection", function(socket) {
   console.log(`socket with id ${socket.id} has connected!`);
+
+  database.getUser(socket.request.session.userId).then(results => {
+    socket.broadcast.emit("userJoined", results.rows[0]); /// broadcasting to everyone
+  });
+
   const userId = socket.request.session.userId;
+
   // add socketid : userid to onlineUsers object
   if (!userId) {
     //// if you need to connect to socket you need to use this socket.re.....
@@ -314,24 +357,64 @@ io.on("connection", function(socket) {
     socket.emit("onlineUsers", results);
   });
 
-  socket.on("connection", function() {
-    console.log(`chatMessage`, function(message) {
-      database.getReacentChatMessages().then(msg => {});
-      io.sockets.emit("chatMessage", {
-        message: message,
-        id: userId,
-        ts:
-          new Date().toLocaleDateString() + "" + newDAte().toLocaleTimeString()
-      });
-    });
-  });
+socket.on("sendMessage", msg => {
 
-  // socket.broadcast.emit("userJoined", payload);
+    database.setAndGetLastMessage(socket.request.session.userId, msg).then((msgresp)=>{
+
+        database.getUser(socket.request.session.userId).then((user) => {
+
+            return io.sockets.emit("newChatMessage", {
+
+
+                msg_sender_first: user.rows[0].first_name,
+                msg_sender_last: user.rows[0].last_name,
+                msg_sender_img: user.rows[0].picurl,
+                userId: user.rows[0].id,
+                // msg_id: msg.id,
+                msg_text: msg
+                // msg_sender_id: msg.sender_id,
+                // msg_time: msg.created_at
+
+            });
+        })
+
+    }).catch(err => {
+        console.log("logging error in socket send message", err);
+    })
+
+})
+
+  // socket.on("sendMessage", msg => {
+  //     console.log("in socket on", socket.request.session.userId, msg);
+  //   database
+  //     .getLastMessage(socket.request.session.userId, msg)
+  //     .then(() => {
+  //         console.log("we are getting f");
+  //       // if we do multiple async things in a row, WE NEED TO RETURN
+  //       // THE SEQUENTIAL STUFF !!!!!!!!!!!!!!!
+  //       return database.getChatMessages();
+  //     })
+  //     .then(response => {
+  //       console.log("logging responce in index", response);
+  //       let msgData = [];
+  //       response.rows.forEach(row => {
+  //         row.localTime = moment(row.msg_time, "MMDD, h:mm").fromNow();
+  //         msgData.push(row);
+  //       });
+  //       return io.sockets.emit("newChatMessage", msgData.reverse().pop());
+  //     });
+  // });
 
   socket.on("disconnect", function() {
     console.log(`socket with id ${socket.id} has left`);
 
-    io.sockets.emit("userLeft", userId);
+    delete onlineUsers[socket.id];
+
+    //checks if the user is already locked in once
+    let check = Object.values(onlineUsers).find(id => id == userId);
+    if (!check) {
+      io.sockets.emit("userLeft", userId);
+    }
   });
 
   /// we are emiting here and listening in client side
