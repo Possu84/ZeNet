@@ -29,11 +29,13 @@ export function reducer(state = {}, action) {
   }
 
   if (action.type == "DELETE_FRIEND") {
-    console.log("delete friend", state);
+    console.log("delete friend", action.id);
 
     state = {
       ...state,
-      users: state.users && state.users.filter(user => user.id != action.delete)
+      friendsandwanabees: state.friendsandwanabees.filter(
+        user => user.id != action.id
+      )
     };
   }
 
