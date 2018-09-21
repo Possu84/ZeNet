@@ -12,8 +12,8 @@ function OnlineUsers(props) {
   return (
     <div>
       <div>
+        <h1 id="friends_online_text"> Online</h1>
         <div id="onlineUsers_container">
-          <h1 id="friends_online_text"> Friends online </h1>
           {props.users.map(users => (
             /// must be props cause it comes from redux
             <div id="friend_profile_container" key={users.id}>

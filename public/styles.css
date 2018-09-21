@@ -245,8 +245,10 @@ body {
 
 #friends_online_text {
   color: white;
-
-  width: 100px;
+  position: absolute;
+  left: 50%;
+  width: 50px;
+  margin-left: -25px;
 
   top: 120px;
   font-size: 15px;
@@ -311,41 +313,28 @@ body {
   font-size: 80px;
 }
 
-#logout_text {
-  animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  position: absolute;
-  right: 10px;
-  top: 30px;
-  color: white;
-  font-size: 15px;
+.error {
   font-family: "Roboto", cursive;
+  color: black;
+  position: absolute;
+  top: 30px;
+  color: purple;
 }
 
-#chat_text {
-  animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+.navi_container {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
   position: absolute;
-  right: 70px;
+  width: 35%;
+  background-color: red;
+  right: 50px;
   top: 30px;
-  color: white;
-  font-size: 15px;
-  font-family: "Roboto", cursive;
 }
 
-#online_text {
+.navi_text {
   animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   position: absolute;
-  right: 120px;
-  top: 30px;
-  color: white;
-  font-size: 15px;
-  font-family: "Roboto", cursive;
-}
-
-#friends_text {
-  animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  position: absolute;
-  right: 180px;
-  top: 30px;
   color: white;
   font-size: 15px;
   font-family: "Roboto", cursive;
@@ -483,7 +472,7 @@ body {
   border-radius: 25px 25px 25px 0px;
   top: 100px;
   width: 400px;
-  height: 85%;
+  height: 80%;
   box-shadow: 0px -31px 114px -33px rgba(0, 0, 0, 0.75);
 }
 
@@ -502,7 +491,7 @@ body {
 #chat_message_area {
   top: 60px;
   left: 10%;
-  height: 70%;
+  height: 65%;
   width: 80%;
   position: absolute;
   overflow: scroll;
@@ -537,7 +526,7 @@ body {
   font-family: "Roboto", cursive;
   font-size: 15px;
   position: absolute;
-  bottom: 10%;
+  bottom: 25px;
   width: 80%;
   left: 10%;
   overflow: scroll;
@@ -559,20 +548,3 @@ body {
   -moz-animation: Gradient 15s ease infinite;
   animation: Gradient 15s ease infinite;
 }
-
-/* font-family: 'Muli', sans-serif;
-font-family: 'Pacifico', cursive;
-font-family: 'Shadows Into Light', cursive;
-font-family: 'Dancing Script', cursive;
-font-family: 'Cinzel', serif;
-font-family: 'Great Vibes', cursive;
-font-family: 'Courgette', cursive;
-font-family: 'Satisfy', cursive;
-font-family: 'Lobster Two', cursive;
-font-family: 'Poiret One', cursive;
-font-family: 'Caveat', cursive;
-font-family: 'Bangers', cursive;
-font-family: 'Sacramento', cursive;
-font-family: 'Russo One', sans-serif;
-font-family: 'Creepster', cursive;
-font-family: 'Sancreek', cursive; */

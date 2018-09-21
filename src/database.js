@@ -165,14 +165,15 @@ module.exports.getChatMessages = function getChatMessages() {
   );
 };
 
-module.exports.setAndGetLastMessage = function setAndGetLastMessage(userId, msg) {
-
-
-    return db.query(
-        `
+module.exports.setAndGetLastMessage = function setAndGetLastMessage(
+  userId,
+  msg
+) {
+  return db.query(
+    `
         INSERT INTO messages (sender_id, message)
         VALUES ($1, $2) RETURNING *
         `,
-        [userId, msg]
-    );
+    [userId, msg]
+  );
 };

@@ -227,15 +227,15 @@ app.post("/make-new-friend/", (req, res) => {
     .then(results => {
       res.json(results.rows[0]);
       for (let socketId in onlineUsers) {
-          console.log("here", req.body.id );
-          if (onlineUsers[socketId] == req.body.id) {
-              console.log("loggin in da if");
-              io.sockets.sockets[socketId].emit(
-                  "friendRequestNotice",
-                  results.rows[0]
-              );
-              console.log("Friend req emission works!");
-          }
+        console.log("here", req.body.id);
+        if (onlineUsers[socketId] == req.body.id) {
+          console.log("loggin in da if");
+          io.sockets.sockets[socketId].emit(
+            "friendRequestNotice",
+            results.rows[0]
+          );
+          console.log("Friend req emission works!");
+        }
       }
     })
     .catch(err => {
@@ -243,11 +243,9 @@ app.post("/make-new-friend/", (req, res) => {
     });
 });
 
-
 /////////////////cancel- delete friendrequest///////////////////////
 
 app.post("/cancel-delete-request", (req, res) => {
-
   database
     .cancelDeleteRequest(req.body.id, req.session.userId)
     .then(results => {
@@ -261,7 +259,6 @@ app.post("/cancel-delete-request", (req, res) => {
 ////////////////confirm friend reguest/////////////
 
 app.post("/confirm-friend-request", (req, res) => {
-
   database
     .confirmFriendRequest(req.body.id, req.session.userId)
     .then(result => {
@@ -275,7 +272,6 @@ app.post("/confirm-friend-request", (req, res) => {
 /////////////////// get friend and friendabies/////////////
 
 app.get("/get-friends-and-wanabes", (req, res) => {
-
   database
     .getFriendsAndWanabes(req.session.userId)
     .then(result => {
@@ -289,19 +285,13 @@ app.get("/get-friends-and-wanabes", (req, res) => {
 //////////////GET MESSAGES///////////////
 
 app.get("/get-messages", (req, res) => {
-
   database
     .getChatMessages()
     .then(result => {
-
-      res.json(result.rows);
+      res.json(result.rows.reverse());
     })
-    .catch(err => {
-
-    });
+    .catch(err => {});
 });
-
-
 
 /////////////LOGOUT/////////////
 
@@ -357,32 +347,27 @@ io.on("connection", function(socket) {
     socket.emit("onlineUsers", results);
   });
 
-socket.on("sendMessage", msg => {
-
-    database.setAndGetLastMessage(socket.request.session.userId, msg).then((msgresp)=>{
-
-        database.getUser(socket.request.session.userId).then((user) => {
-
-            return io.sockets.emit("newChatMessage", {
-
-
-                msg_sender_first: user.rows[0].first_name,
-                msg_sender_last: user.rows[0].last_name,
-                msg_sender_img: user.rows[0].picurl,
-                userId: user.rows[0].id,
-                // msg_id: msg.id,
-                msg_text: msg
-                // msg_sender_id: msg.sender_id,
-                // msg_time: msg.created_at
-
-            });
-        })
-
-    }).catch(err => {
+  socket.on("sendMessage", msg => {
+    database
+      .setAndGetLastMessage(socket.request.session.userId, msg)
+      .then(msgresp => {
+        database.getUser(socket.request.session.userId).then(user => {
+          return io.sockets.emit("newChatMessage", {
+            msg_sender_first: user.rows[0].first_name,
+            msg_sender_last: user.rows[0].last_name,
+            msg_sender_img: user.rows[0].picurl,
+            userId: user.rows[0].id,
+            // msg_id: msg.id,
+            msg_text: msg
+            // msg_sender_id: msg.sender_id,
+            // msg_time: msg.created_at
+          });
+        });
+      })
+      .catch(err => {
         console.log("logging error in socket send message", err);
-    })
-
-})
+      });
+  });
 
   // socket.on("sendMessage", msg => {
   //     console.log("in socket on", socket.request.session.userId, msg);

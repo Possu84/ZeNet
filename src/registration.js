@@ -79,6 +79,7 @@ class Registration extends React.Component {
           onChange={this.handleChange}
           name="password_input"
           placeholder="password.."
+          type="password"
         />
         <br />
 

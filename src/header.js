@@ -7,18 +7,20 @@ function Header() {
     <div>
       <header id="header_component">
         <p id="header_logo">ZEN</p>{" "}
-        <a href="/logout">
-          <p id="logout_text">Logout</p>
-        </a>
-        <a href="/chat">
-          <p id="chat_text">Chat</p>
-        </a>
-        <a href="/online_users">
-          <p id="online_text">Online</p>
-        </a>
-        <a href="/friends">
-          <p id="friends_text">Friends</p>
-        </a>
+        <div className="navi_container">
+          <a href="/logout">
+            <p className="navi_text">Logout</p>
+          </a>
+          <a href="/chat">
+            <p className="navi_text">Chat</p>
+          </a>
+          <a href="/online_users">
+            <p className="navi_text">Online</p>
+          </a>
+          <a href="/friends">
+            <p className="navi_text">Friends</p>
+          </a>
+        </div>
       </header>
     </div>
   );
